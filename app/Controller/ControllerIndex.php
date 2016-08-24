@@ -6,5 +6,5 @@ class ControllerIndex extends Controller{
         $oIndex = new ViewLogin();
         $oIndex->render();
     }
-
+    
 }
