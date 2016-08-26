@@ -8,5 +8,5 @@ class ControllerIndex extends Controller{
         $oIndex = new \App\View\ViewLogin();
         $oIndex->render();
     }
-
+    
 }
