@@ -74,5 +74,5 @@ class Campo extends Elemento {
             $this->getAttr()->delAttr('readonly');
         }
     }
-    
+
 }
