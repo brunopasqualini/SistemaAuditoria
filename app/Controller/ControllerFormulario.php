@@ -1,7 +1,7 @@
 <?php
 namespace App\Controller;
 
-public class ControllerFormulario extends Controller {
+class ControllerFormulario extends Controller {
 
     protected $Model;
     protected $Persistencia;
