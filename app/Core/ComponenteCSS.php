@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class ComponenteCSS {
 
     private $class = [];

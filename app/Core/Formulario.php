@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class Formulario implements ElementoRenderer {
 
     private $Form;
@@ -69,5 +71,5 @@ class Formulario implements ElementoRenderer {
         $this->Form->addFilhos($oSubmit);
         $this->Form->render();
     }
-    
+
 }

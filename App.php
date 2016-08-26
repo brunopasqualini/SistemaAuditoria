@@ -1,4 +1,7 @@
 <?php
+
+use App\Core\Sessao;
+
 class App {
 
     private static $_self;
@@ -27,6 +30,7 @@ class App {
         if(!file_exists("Controller".DIRSEP."Controller{$sController}.php")){
             $sController = 'ControllerIndex';
         }
+        $sController = 'App\Controller\\' . $sController;
         $oController = new $sController();
         if(!method_exists($oController, $sProcess)){
             $sProcess = 'processa';
@@ -48,8 +52,12 @@ class App {
         return $item . DIRSEP;
     }
 
-    public static function getPathFull($item){
-        return __DIR__ . DIRSEP . $item . DIRSEP;
+    public static function getPathRoot(){
+        return __DIR__ . DIRSEP;
     }
-    
+
+    public static function getPathFull($item){
+        return self::getPathRoot() . $item . DIRSEP;
+    }
+
 }

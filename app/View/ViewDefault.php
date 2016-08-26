@@ -1,4 +1,10 @@
 <?php
+namespace App\View;
+
+use App\Core\Elemento;
+use App\Core\ElementoImg;
+use App\Core\ElementoLink;
+
 abstract class ViewDefault extends ViewPageAbstract{
 
     protected function init() {

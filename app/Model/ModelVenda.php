@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+
 class ModelVenda {
 
     #PK

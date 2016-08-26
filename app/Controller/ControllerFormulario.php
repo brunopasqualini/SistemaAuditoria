@@ -1,4 +1,6 @@
 <?php
+namespace App\Controller;
+
 public class ControllerFormulario extends Controller {
 
     protected $Model;

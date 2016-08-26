@@ -1,4 +1,10 @@
 <?php
+namespace App\View;
+
+use App\Core\Elemento;
+use App\Core\Formulario;
+use App\Core\Campo;
+
 class ViewLogin extends ViewDefault {
 
     protected function criaConteudo(Elemento $oContainer){

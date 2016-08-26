@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class ElementoImg extends Elemento {
 
     public function __construct($src){
@@ -7,7 +9,7 @@ class ElementoImg extends Elemento {
     }
 
     public function setUrl($src){
-        $this->getAttr()->addAttr('src', App::getPath('img') . $src);
+        $this->getAttr()->addAttr('src', \App::getPath('img') . $src);
     }
 
 }

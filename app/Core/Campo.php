@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class Campo extends Elemento {
 
     private $required;

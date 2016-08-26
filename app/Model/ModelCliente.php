@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+
 class ModelCliente {
 
     private $Cidade;
@@ -78,5 +80,5 @@ class ModelCliente {
     public function setAtivo($ativo){
         $this->ativo = $ativo;
     }
-    
+
 }

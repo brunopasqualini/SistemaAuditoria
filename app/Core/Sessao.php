@@ -1,5 +1,7 @@
 <?php
-class Sessao implements SessionHandlerInterface {
+namespace App\Core;
+
+class Sessao implements \SessionHandlerInterface {
 
     const NATIVE   = 1;
     const DATABASE = 2;
@@ -47,5 +49,5 @@ class Sessao implements SessionHandlerInterface {
         }
         return $unserialize ? unserialize($_SESSION[$key]) : $_SESSION[$key];
     }
-    
+
 }

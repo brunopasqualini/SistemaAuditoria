@@ -1,4 +1,6 @@
 <?php
+namespace App\View;
+
 abstract class ViewPageAbstract {
 
     private $title;
@@ -13,7 +15,7 @@ abstract class ViewPageAbstract {
     abstract protected function init();
 
     protected function addCss($file){
-        $this->aCss[] = App::getPath('css') . $file . '.css';
+        $this->aCss[] = \App::getPath('css') . $file . '.css';
         return $this;
     }
 
@@ -23,7 +25,7 @@ abstract class ViewPageAbstract {
     }
 
     protected function addJs($file){
-        $this->aJs[] = App::getPath('js') . $file . '.js';
+        $this->aJs[] = \App::getPath('js') . $file . '.js';
         return $this;
     }
 
@@ -69,5 +71,5 @@ abstract class ViewPageAbstract {
     }
 
     protected abstract function criaCorpo();
-    
+
 }

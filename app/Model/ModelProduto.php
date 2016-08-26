@@ -1,4 +1,6 @@
 <?php
+namespace App\Model;
+
 class ModelProduto {
 
     #PK
@@ -38,5 +40,5 @@ class ModelProduto {
     public function setEstoque($estoque){
         $this->estoque = $estoque;
     }
-    
+
 }

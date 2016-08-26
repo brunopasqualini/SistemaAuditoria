@@ -1,4 +1,6 @@
 <?php
+namespace App\Controller;
+
 abstract class Controller {
 
     protected $App;
@@ -6,7 +8,7 @@ abstract class Controller {
     protected $_fileName;
 
     public function __construct(){
-        $this->app = App::getInstance();
+        $this->App = \App::getInstance();
         $this->extractName();
     }
 
@@ -15,5 +17,5 @@ abstract class Controller {
     protected function extractName(){
         $this->_fileName = str_replace(__CLASS__, '', get_class($this));
     }
-    
+
 }

@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class ElementoLink extends Elemento {
 
     private $type;

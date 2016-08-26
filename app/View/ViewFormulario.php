@@ -1,4 +1,9 @@
 <?php
+namespace App\View;
+
+use App\Core\Elemento;
+use App\Core\Formulario;
+
 class ViewFormulario extends ViewDefault {
 
     //http://demo.geekslabs.com/materialize/v3.1/form-validation.html

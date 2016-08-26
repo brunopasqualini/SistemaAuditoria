@@ -1,4 +1,6 @@
 <?php
+namespace App\Core;
+
 class Elemento implements ElementoRenderer{
 
     const TYPE_OPENED  = 1;
