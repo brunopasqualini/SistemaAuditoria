@@ -1,10 +1,15 @@
 <?php
 
 use App\Core\Sessao;
+use App\Core\Config;
+use App\Core\Database\Connection;
 
 class App {
 
     private static $_self;
+
+    public $Config;
+    public $Connection;
 
     private $_params = [];
 
@@ -21,6 +26,8 @@ class App {
     }
 
     public function init() {
+        $this->Config     = Config::load(['config']);
+        $this->Connection = Connection::get();
         $this->dispatch();
     }
 
