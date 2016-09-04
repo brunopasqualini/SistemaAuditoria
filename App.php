@@ -1,6 +1,6 @@
 <?php
 
-use App\Core\Sessao;
+use App\Core\Session;
 use App\Core\Config;
 use App\Core\Database\Connection;
 
@@ -9,13 +9,12 @@ class App {
     private static $_self;
 
     public $Config;
-    public $Connection;
+    public $DB;
 
     private $_params = [];
 
     private function __construct(){
         $this->parseParams();
-        Sessao::init(Sessao::DATABASE);
     }
 
     public static function getInstance(){
@@ -26,8 +25,9 @@ class App {
     }
 
     public function init() {
-        $this->Config     = Config::load(['config']);
-        $this->Connection = Connection::get();
+        $this->Config = Config::load(['config']);
+        $this->DB     = Connection::get();
+        Session::init(Session::DATABASE);
         $this->dispatch();
     }
 
@@ -45,8 +45,8 @@ class App {
         $oController->$sProcess();
     }
 
-    public function getParam($sParam, $sDefault = null){
-        return isset($this->_params[$sParam]) ? $this->_params[$sParam] : $sDefault;
+    public function getParam($sParam, $xDefault = null){
+        return isset($this->_params[$sParam]) ? $this->_params[$sParam] : $xDefault;
     }
 
     private function parseParams(){
@@ -65,6 +65,10 @@ class App {
 
     public static function getPathFull($item){
         return self::getPathRoot() . $item . DIRSEP;
+    }
+
+    public static function getPathTemp(){
+        return self::getPathFull('temp') . DIRSEP;
     }
 
 }

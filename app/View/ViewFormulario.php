@@ -2,7 +2,7 @@
 namespace App\View;
 
 use App\Core\Elemento;
-use App\Core\Formulario;
+use App\Core\Form\Form;
 
 class ViewFormulario extends ViewDefault {
 
@@ -11,10 +11,10 @@ class ViewFormulario extends ViewDefault {
     private $Form;
 
     protected function init(){
-        $this->Form = new Formulario('teste');
+        $this->Form = new Form('teste');
     }
 
-    protected function criaConteudo(Elemento $oContainer){
+    protected function createContent(Element $oContainer){
 
     }
 

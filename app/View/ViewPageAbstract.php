@@ -4,7 +4,6 @@ namespace App\View;
 abstract class ViewPageAbstract {
 
     private $title;
-
     private $aCss = [];
     private $aJs  = [];
 
@@ -14,8 +13,8 @@ abstract class ViewPageAbstract {
 
     abstract protected function init();
 
-    protected function addCss($file){
-        $this->aCss[] = \App::getPath('css') . $file . '.css';
+    protected function addCss($sFile){
+        $this->aCss[] = \App::getPath('css') . $sFile . '.css';
         return $this;
     }
 
@@ -24,52 +23,52 @@ abstract class ViewPageAbstract {
         return $this;
     }
 
-    protected function addJs($file){
-        $this->aJs[] = \App::getPath('js') . $file . '.js';
+    protected function addJs($sFile){
+        $this->aJs[] = \App::getPath('js') . $sFile . '.js';
         return $this;
     }
 
-    public function setTitulo($titulo){
-        $this->title = $titulo;
+    public function setTitle($sTitle){
+        $this->title = $sTitle;
         return $this;
     }
 
     public function render(){
         echo '<!DOCTYPE html>';
         echo '<html>';
-        $this->criaHead();
-        $this->criaBody();
+        $this->doHead();
+        $this->doBody();
         echo '</html>';
     }
 
-    private function criaHead(){
+    private function doHead(){
         echo '<head>';
         echo "<title>{$this->title}</title>";
-        echo $this->geraCss();
+        echo $this->getCss();
         echo '<meta charset="UTF-8">';
         echo '<meta name="viewport" content="width=device-width, initial-scale=1.0">';
         echo '</head>';
     }
 
-    private function geraCss(){
-        return implode('', array_map(function($value) {
-            return '<link rel="stylesheet" type="text/css" href='.$value.'>';
+    private function getCss(){
+        return implode('', array_map(function($sValue) {
+            return '<link rel="stylesheet" type="text/css" href='.$sValue.'>';
         }, $this->aCss));
     }
 
-    private function criaBody(){
+    private function doBody(){
         echo '<body>';
-        echo $this->criaCorpo();
-        echo $this->geraJs();
+        echo $this->createBody();
+        echo $this->getJs();
         echo '</body>';
     }
 
-    private function geraJs(){
-        return implode('', array_map(function($value) {
-            return '<script src='.$value.'></script>';
+    private function getJs(){
+        return implode('', array_map(function($sSrc) {
+            return '<script src='.$sSrc.'></script>';
         }, $this->aJs));
     }
 
-    protected abstract function criaCorpo();
+    protected abstract function createBody();
 
 }

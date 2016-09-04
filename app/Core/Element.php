@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-class Elemento implements ElementoRenderer{
+class Element implements ElementRenderer{
 
     const TYPE_OPENED  = 1;
     const TYPE_CLOSED  = 2;
@@ -13,13 +13,13 @@ class Elemento implements ElementoRenderer{
     private $type;
     private $content;
 
-    protected $filhos = [];
+    protected $childs = [];
 
-    public function __construct($tag, $type = self::TYPE_CLOSED){
+    public function __construct($sTag, $iType = self::TYPE_CLOSED){
         $this->Css  = new ComponenteCSS();
         $this->Attr = new ComponenteAttr();
-        $this->tag  = $tag;
-        $this->type = $type;
+        $this->tag  = $sTag;
+        $this->type = $iType;
     }
 
     public function render(){
@@ -28,8 +28,8 @@ class Elemento implements ElementoRenderer{
             echo $this->content;
         }
         else{
-            foreach($this->filhos as $filho){
-                $filho->render();
+            foreach($this->childs as $oChild){
+                $oChild->render();
             }
         }
         if(in_array($this->type, Array(self::TYPE_CLOSED, self::TYPE_CONTENT))){
@@ -37,20 +37,20 @@ class Elemento implements ElementoRenderer{
         }
     }
 
-    private function addFilho(ElementoRenderer $oFilho){
-        $this->filhos[] = $oFilho;
+    private function verifyChild(ElementRenderer $oChild){
+        $this->childs[] = $oChild;
     }
 
-    public function addFilhos(){
-        $aFilhos = func_get_args();
-        foreach ($aFilhos as $oFilho) {
-            $this->addFilho($oFilho);
+    public function addChild(){
+        $aParams = func_get_args();
+        foreach ($aParams as $oChild) {
+            $this->verifyChild($oChild);
         }
         return $this;
     }
 
-    public function setTexto($text){
-        $this->content = $text;
+    public function setText($sText){
+        $this->content = $sText;
         return $this;
     }
 

@@ -1,11 +1,11 @@
 <?php
 namespace App\View;
 
-use App\Core\Elemento;
+use App\Core\Element;
 
 class ViewIndex extends ViewDefault {
 
-    protected function criaConteudo(Elemento $oContainer){
+    protected function createContent(Element $oContainer){
 
     }
 

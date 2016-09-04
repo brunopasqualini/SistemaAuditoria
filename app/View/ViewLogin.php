@@ -1,31 +1,31 @@
 <?php
 namespace App\View;
 
-use App\Core\Elemento;
-use App\Core\Formulario;
-use App\Core\Campo;
+use App\Core\Element;
+use App\Core\Form\Form;
+use App\Core\Form\Field;
 
 class ViewLogin extends ViewDefault {
 
-    protected function criaConteudo(Elemento $oContainer){
-        $oForm = new Formulario('teste');
-        $oUser = new Campo('text', 'username', 'Usuário');
+    protected function createContent(Element $oContainer){
+        $oForm = new Form('teste');
+        $oUser = new Field('text', 'username', 'Usuário');
         $oUser->setIcon('perm_identity');
-        $oPass = new Campo('password', 'password', 'Senha');
+        $oPass = new Field('password', 'password', 'Senha');
         $oPass->setIcon('lock');
         $oForm->addField($oUser, $oPass);
         $oForm->setDescriptionBtn('Entrar');
-        $oContainer->addFilhos($this->criaTitulo(), $oForm);
+        $oContainer->addChild($this->criaTitulo(), $oForm);
     }
 
     private function criaTitulo(){
-        $oCtnTitle = new Elemento('div');
+        $oCtnTitle = new Element('div');
         $oCtnTitle->getCss()->addClass('center-align');
-        $oTexto = new Elemento('p', Elemento::TYPE_CONTENT);
-        $oTexto->setTexto('Efetuar Login');
-        $oBold = new Elemento('b');
-        $oBold->addFilhos($oTexto);
-        $oCtnTitle->addFilhos($oBold);
+        $oTexto = new Element('p', Element::TYPE_CONTENT);
+        $oTexto->setText('Efetuar Login');
+        $oBold = new Element('b');
+        $oBold->addChild($oTexto);
+        $oCtnTitle->addChild($oBold);
         return $oCtnTitle;
     }
 

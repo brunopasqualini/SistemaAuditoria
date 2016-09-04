@@ -1,17 +1,42 @@
 <?php
 namespace App\Model;
 
+/**
+ * @Table(name=tbvenda)
+ */
 class ModelVenda {
 
-    #PK
+    /**
+     * @PK
+     * @FK
+     */
     private $Cliente;
-    #PK
+
+    /**
+     * @PK
+     * @FK
+     */
     private $Produto;
 
-    #PK
+    /**
+     * @PK
+     * @Column(name=vendata)
+     */
     private $data;
+
+    /**
+     * @Column(name=venqtd)
+     */
     private $quantidade;
+
+    /**
+     * @Column(name=venqtd)
+     */
     private $dataPagamento;
+
+    /**
+     * @Column(name=venvalorpago)
+     */
     private $valorPago;
 
     public function getCliente(){
@@ -21,8 +46,8 @@ class ModelVenda {
         return $this->Cliente;
     }
 
-    public function setCliente($cliente){
-        $this->Cliente = $cliente;
+    public function setCliente($oCliente){
+        $this->Cliente = $oCliente;
     }
 
     public function getProduto(){
@@ -32,40 +57,40 @@ class ModelVenda {
         return $this->Produto;
     }
 
-    public function setProduto($produto){
-        $this->Produto = $produto;
+    public function setProduto($oProduto){
+        $this->Produto = $oProduto;
     }
 
     public function getData(){
         return $this->data;
     }
 
-    public function setData($data){
-        $this->data = $data;
+    public function setData($sData){
+        $this->data = $sData;
     }
 
     public function getQuantidade(){
         return $this->quantidade;
     }
 
-    public function setQuantidade($quantidade){
-        $this->quantidade = $quantidade;
+    public function setQuantidade($iQuantidade){
+        $this->quantidade = $iQuantidade;
     }
 
     public function getDataPagamento(){
         return $this->dataPagamento;
     }
 
-    public function setDataPagamento($data){
-        $this->dataPagamento = $data;
+    public function setDataPagamento($sData){
+        $this->dataPagamento = $sData;
     }
 
     public function getValorPago(){
         return $this->valorPago;
     }
 
-    public function setValorPago($valor){
-        $this->valorPago = $valor;
+    public function setValorPago($fValor){
+        $this->valorPago = $fValor;
     }
 
 }

@@ -6,25 +6,25 @@ class ComponenteCSS {
     private $class = [];
     private $prop  = [];
 
-    public function addProp($prop, $value){
-        $this->prop[$prop] = $value;
+    public function add($sProp, $sValue){
+        $this->prop[$sProp] = $sValue;
         return $this;
     }
 
-    public function addClass($name){
-        $this->class[] = $name;
+    public function addClass($sName){
+        $this->class[] = $sName;
         return $this;
     }
 
     public function __toString() {
         $sClass = implode(' ', $this->class);
         $sClass = isEmpty($sClass) ? '' : 'class="'.$sClass.'"';
-        $sProp  = '';
-        foreach($this->prop as $prop => $value){
-            $sProp .= "{$prop}:{$value};";
+        $sProperties = '';
+        foreach($this->prop as $sProp => $sValue){
+            $sProperties .= "{$sProp}:{$sValue};";
         }
-        $sProp = isEmpty($sProp) ? '' : 'style="'.$sProp.'"';
-        return trim($sClass . ' ' . $sProp);
+        $sProperties = isEmpty($sProperties) ? '' : 'style="'.$sProperties.'"';
+        return trim($sClass . ' ' . $sProperties);
     }
 
 }

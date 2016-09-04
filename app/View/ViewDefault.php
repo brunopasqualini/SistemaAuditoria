@@ -1,9 +1,9 @@
 <?php
 namespace App\View;
 
-use App\Core\Elemento;
-use App\Core\ElementoImg;
-use App\Core\ElementoLink;
+use App\Core\Element;
+use App\Core\ElementImg;
+use App\Core\ElementLink;
 
 abstract class ViewDefault extends ViewPageAbstract{
 
@@ -17,83 +17,83 @@ abstract class ViewDefault extends ViewPageAbstract{
              ->addJs('js');
     }
 
-    protected function criaCorpo() {
-        $this->criaHeader();
-        $oContainer = new Elemento('div');
+    protected function createBody() {
+        $this->doHeader();
+        $oContainer = new Element('div');
         $oContainer->getCss()->addClass('container');
-        $this->criaConteudo($oContainer);
+        $this->createContent($oContainer);
         $oContainer->render();
-        $this->criaFooter();
+        $this->doFooter();
     }
 
-    private function criaHeader(){
-        $oHeader    = new Elemento('header');
+    private function doHeader(){
+        $oHeader    = new Element('header');
         $oHeader->getCss()->addClass('cor-tema');
-        $oContainer = new Elemento('div');
+        $oContainer = new Element('div');
         $oContainer->getCss()->addClass('container');
-        $oTitCtn    = new Elemento('div');
+        $oTitCtn    = new Element('div');
         $oTitCtn->getCss()->addClass('titulo nav-wrapper valing-wrapper center-align cor-tema');
-        $oTitulo    = new Elemento('h3', Elemento::TYPE_CONTENT);
-        $oTitulo->setTexto('Auditoria')->getCss()->addClass('white-text');
-        $oSubTitulo = new Elemento('h5', Elemento::TYPE_CONTENT);
-        $oSubTitulo->setTexto('"Auditorando as auditorias auditadas"')
+        $oTitulo    = new Element('h3', Element::TYPE_CONTENT);
+        $oTitulo->setText('Auditoria')->getCss()->addClass('white-text');
+        $oSubTitulo = new Element('h5', Element::TYPE_CONTENT);
+        $oSubTitulo->setText('"Auditorando as auditorias auditadas"')
                    ->getCss()->addClass('white-text');
-        $oEnter     = new Elemento('br', Elemento::TYPE_OPENED);
-        $oTitCtn->addFilhos($oTitulo, $oSubTitulo, $oEnter);
-        $oContainer->addFilhos($oTitCtn);
-        $oHeader->addFilhos($oContainer);
+        $oEnter     = new Element('br', Element::TYPE_OPENED);
+        $oTitCtn->addChild($oTitulo, $oSubTitulo, $oEnter);
+        $oContainer->addChild($oTitCtn);
+        $oHeader->addChild($oContainer);
         $oHeader->render();
     }
 
-    abstract protected function criaConteudo(Elemento $oContainer);
+    abstract protected function createContent(Element $oContainer);
 
-    private function criaFooter(){
-        $oFooter = new Elemento('footer');
+    private function doFooter(){
+        $oFooter = new Element('footer');
         $oFooter->getCss()->addClass('page-footer cor-tema');
-        $oContainer = new Elemento('div');
+        $oContainer = new Element('div');
         $oContainer->getCss()->addClass('container');
-        $oFooter->addFilhos($oContainer);
+        $oFooter->addChild($oContainer);
 
-        $oRow = new Elemento('div');
+        $oRow = new Element('div');
         $oRow->getCss()->addClass('row');
-        $oContainer->addFilhos($oRow);
+        $oContainer->addChild($oRow);
 
-        $oCol1 = new Elemento('div');
+        $oCol1 = new Element('div');
         $oCol1->getCss()->addClass('col l6 s12');
-        $oCol2 = new Elemento('div');
+        $oCol2 = new Element('div');
         $oCol2->getCss()->addClass('col l4 offset-l2 s12');
-        $oRow->addFilhos($oCol1, $oCol2);
+        $oRow->addChild($oCol1, $oCol2);
 
-        $oNome = new Elemento('h5', Elemento::TYPE_CONTENT);
-        $oNome->setTexto('Auditoria SC LTDA')->getCss()->addClass('white-text');
-        $oEndereco = new Elemento('p', Elemento::TYPE_CONTENT);
-        $oEndereco->setTexto('Endereço do seu Pedro')->getCss()->addClass('grey-text text-lighten-4');
-        $oFone = new Elemento('p', Elemento::TYPE_CONTENT);
-        $oFone->setTexto('Fone: (XX) 0000-0000')->getCss()->addClass('grey-text text-lighten-4');
-        $oCol1->addFilhos($oNome, $oEndereco, $oFone);
+        $oNome = new Element('h5', Element::TYPE_CONTENT);
+        $oNome->setText('Auditoria SC LTDA')->getCss()->addClass('white-text');
+        $oEndereco = new Element('p', Element::TYPE_CONTENT);
+        $oEndereco->setText('Endereço do seu Pedro')->getCss()->addClass('grey-text text-lighten-4');
+        $oFone = new Element('p', Element::TYPE_CONTENT);
+        $oFone->setText('Fone: (XX) 0000-0000')->getCss()->addClass('grey-text text-lighten-4');
+        $oCol1->addChild($oNome, $oEndereco, $oFone);
 
-        $oMensagem = new Elemento('h5', Elemento::TYPE_CONTENT);
-        $oMensagem->setTexto('Fique conectado')->getCss()->addClass('white-text');
-        $oLinkFB = new ElementoLink();
+        $oMensagem = new Element('h5', Element::TYPE_CONTENT);
+        $oMensagem->setText('Fique conectado')->getCss()->addClass('white-text');
+        $oLinkFB = new ElementLink();
         $oLinkFB->getCss()->addClass('social grey-text text-lighten-3');
-        $oLinkFB->addFilhos(new ElementoImg('fb.png'));
-        $oLinkInsta = new ElementoLink();
+        $oLinkFB->addChild(new ElementImg('fb.png'));
+        $oLinkInsta = new ElementLink();
         $oLinkInsta->getCss()->addClass('social grey-text text-lighten-3');
-        $oLinkInsta->addFilhos(new ElementoImg('inst.png'));
-        $oCol2->addFilhos($oMensagem, $oLinkFB, $oLinkInsta);
+        $oLinkInsta->addChild(new ElementImg('inst.png'));
+        $oCol2->addChild($oMensagem, $oLinkFB, $oLinkInsta);
 
-        $oCopyright = new Elemento('div');
+        $oCopyright = new Element('div');
         $oCopyright->getCss()->addClass('footer-copyright');
 
-        $oContainer = new Elemento('div');
+        $oContainer = new Element('div');
         $oContainer->getCss()->addClass('container');
-        $oCopyright->addFilhos($oContainer);
+        $oCopyright->addChild($oContainer);
 
-        $oSpan = new Elemento('span', Elemento::TYPE_CONTENT);
-        $oSpan->setTexto('© 2016 Copyright Text | Bruno Pasqualini & Kelvin Eger');
-        $oContainer->addFilhos($oSpan);
+        $oSpan = new Element('span', Element::TYPE_CONTENT);
+        $oSpan->setText('© 2016 Copyright Text | Bruno Pasqualini & Kelvin Eger');
+        $oContainer->addChild($oSpan);
 
-        $oFooter->addFilhos($oCopyright);
+        $oFooter->addChild($oCopyright);
         $oFooter->render();
     }
 

@@ -5,28 +5,28 @@ class ComponenteAttr {
 
     private $attr = [];
 
-    public function addAttr($attr, $value = null){
-        $this->attr[$attr] = $value;
+    public function add($aAttr, $sValue = null){
+        $this->attr[$aAttr] = $sValue;
         return $this;
     }
 
-    public function getAttr($attr){
-        return isset($this->attr) ? $this->attr[$attr] : null;
+    public function get($sAttr){
+        return isset($this->attr) ? $this->attr[$sAttr] : null;
     }
 
-    public function delAttr($attr){
-        unset($this->attr[$attr]);
+    public function del($sAttr){
+        unset($this->attr[$sAttr]);
     }
 
     public function __toString(){
-        $sAttr = '';
-        foreach($this->attr as $attr => $value){
-            $sAttr .= ' ' . $attr;
-            if(!is_null($value)){
-                $sAttr .= '="'.$value.'"';
+        $sAttribute = '';
+        foreach($this->attr as $sAttr => $sValue){
+            $sAttribute .= ' ' . $sAttr;
+            if(!is_null($sValue)){
+                $sAttribute .= '="'.$sValue.'"';
             }
         }
-        return trim($sAttr);
+        return trim($sAttribute);
     }
 
 }

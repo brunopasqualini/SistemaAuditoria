@@ -7,35 +7,35 @@ class Config {
 
     private function __construct(){}
 
-    public static function load(Array $files){
+    public static function load(Array $aFiles){
         $oConfig = new Config();
-        foreach($files as $file){
-            $oConfig->parseFile($file);
+        foreach($aFiles as $sFile){
+            $oConfig->parseFile($sFile);
         }
         return $oConfig;
     }
 
-    private function parseFile($name){
-        $sPath = \App::getPathRoot() . $name . '.ini';
+    private function parseFile($sName){
+        $sPath = \App::getPathRoot() . $sName . '.ini';
         $aInfo = parse_ini_file($sPath, true, INI_SCANNER_TYPED);
-        foreach ($aInfo as $section => $aConfig) {
+        foreach ($aInfo as $sSection => $aConfig) {
             if(count($aConfig) > 0){
-                $this->info[$section] = $aConfig;
+                $this->info[$sSection] = $aConfig;
             }
         }
     }
 
-    public function getConfig($subject, $key = null){
-        if(!isset($this->info[$subject])){
-            throw new \Exception('Section not found!');
+    public function getConfig($sContext, $sKey = null){
+        if(!isset($this->info[$sContext])){
+            throw new \Exception("Context {$sContext} not found!");
         }
-        if(is_null($key)){
-            return $this->info[$subject];
+        if(is_null($sKey)){
+            return $this->info[$sContext];
         }
-        if(!isset($this->info[$subject][$key])){
-            throw new \Exception("Config {$key} from section {$subject} not found!");
+        if(!isset($this->info[$sContext][$sKey])){
+            throw new \Exception("Config {$sKey} from context {$sContext} not found!");
         }
-        return $this->info[$subject][$key];
+        return $this->info[$sContext][$sKey];
     }
 
 }

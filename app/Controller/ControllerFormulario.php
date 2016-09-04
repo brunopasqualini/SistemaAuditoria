@@ -4,14 +4,14 @@ namespace App\Controller;
 class ControllerFormulario extends Controller {
 
     protected $Model;
-    protected $Persistencia;
+    protected $Persistence;
     protected $View;
 
     public function __construct(){
         parent::__construct();
         $this->View  = $this->getView();
         $this->Model = $this->getModel();
-        $this->Persistencia = $this->getPersistencia();
+        $this->Persistencia = $this->getPersistence();
     }
 
     public function processa(){
@@ -28,9 +28,9 @@ class ControllerFormulario extends Controller {
         return new $sModel();
     }
 
-    protected function getPersistencia(){
-        $sPersistencia = 'Persistencia'.$this->_fileName;
-        return new $sPersistencia();
+    protected function getPersistence(){
+        $sPersistence = 'Persistence'.$this->_fileName;
+        return new $sPersistence();
     }
 
 }

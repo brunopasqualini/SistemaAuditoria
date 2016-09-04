@@ -1,10 +1,12 @@
 <?php
 namespace App\Core\Database;
 
+use App\Core\Exception\Database\ConnectionException;
+
 abstract class Connection {
 
-    const TYPE_MYSQL = 1;
-    const TYPE_PGSQL = 2;
+    const TYPE_MYSQL  = 1;
+    const TYPE_PGSQL  = 2;
 
     protected $host;
     protected $port;
@@ -14,49 +16,70 @@ abstract class Connection {
 
     private $PDO;
 
-    private function __construct($host, $port, $user, $pass, $database){
-        $this->host = $host;
-        $this->port = $port;
-        $this->user = $user;
-        $this->pass = $pass;
-        $this->database = $database;
+    private function __construct(){}
+
+    private function setConfig($sHost, $iPort, $sUser, $sPass, $sDatabase){
+        $this->host     = $sHost;
+        $this->port     = $iPort;
+        $this->user     = $sUser;
+        $this->pass     = $sPass;
+        $this->database = $sDatabase;
     }
 
     public static function get(){
         $aConfig = \App::getInstance()->Config->getConfig('database');
-        $iType   = (int) $aConfig['type'];
-        if($iType == self::TYPE_MYSQL){
-            $oCon = new ConnectionMySql($aConfig['host'], $aConfig['port'], $aConfig['user'], $aConfig['pass'], $aConfig['database']);
-        }
-        else if($iType == self::TYPE_PGSQL){
-            $oCon = new ConnectionPgSql($aConfig['host'], $aConfig['port'], $aConfig['user'], $aConfig['pass'], $aConfig['database']);
-        }
+        $oCon    = self::create($aConfig['type']);
+        $oCon->setConfig($aConfig['host'], $aConfig['port'], $aConfig['user'], $aConfig['pass'], $aConfig['database']);
         $oCon->connect();
+        return $oCon;
+    }
+
+    private static function create($iType){
+        switch ($iType) {
+            case self::TYPE_MYSQL:
+                return new ConnectionMySql();
+            case self::TYPE_PGSQL:
+                return new ConnectionPgSql();
+        }
     }
 
     public function connect(){
         try {
             $this->PDO = new \PDO($this->getDsn(), $this->user, $this->pass, $this->getDefaultOptions());
             $this->PDO->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            $this->PDO->setAttribute(\PDO::ATTR_AUTOCOMMIT, false);
             $this->PDO->setAttribute(\PDO::ATTR_DEFAULT_FETCH_MODE, \PDO::FETCH_ASSOC);
         }
         catch(\Exception $exc){
-            echo $exc->getMessage();
+            throw new ConnectionException();
         }
+    }
 
+    public function prepare($sQuery, $aOptions = []){
+        return $this->PDO->prepare($sQuery, $aOptions);
+    }
+
+    public function begin(){
+        $this->PDO->beginTransaction();
+    }
+
+    public function commit(){
+        $this->PDO->commit();
+    }
+
+    public function rollback(){
+        $this->PDO->rollBack();
     }
 
     abstract protected function getDsn();
+
+    protected function getOptions() {
+        return [];
+    }
 
     private function getDefaultOptions(){
         return $this->getOptions() + [
             \PDO::ATTR_PERSISTENT => false
         ];
-    }
-
-    protected function getOptions() {
-        return [];
     }
 
     public function disconnect(){

@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-interface ElementoRenderer {
+interface ElementRenderer {
 
     public function render();
 

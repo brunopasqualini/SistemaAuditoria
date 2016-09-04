@@ -1,17 +1,51 @@
 <?php
 namespace App\Model;
 
+/**
+ * @Table(name=tbcliente)
+ */
 class ModelCliente {
 
+    /**
+     * @FK
+     */
     private $Cidade;
 
-    #PK
+    /**
+     * @PK
+     * @Serial
+     * @Column(name=clicodigo)
+     */
     private $codigo;
+
+    /**
+     * @Column(name=clinome)
+     */
     private $nome;
+
+    /**
+     * @Column(name=cliendereco)
+     */
     private $endereco;
+
+    /**
+     * @Column(name=clisexo)
+     */
     private $sexo;
+
+    /**
+     * @Column(name=clidtnasc)
+     */
     private $nascimento;
+
+    /**
+     * @Column(name=clisaldo)
+     */
     private $saldoDevedor;
+
+    /**
+     * @Column(name=cliativo)
+     */
     private $ativo;
 
     public function getCidade(){
@@ -21,64 +55,64 @@ class ModelCliente {
         return $this->Cidade;
     }
 
-    public function setCidade($cidade){
-        $this->Cidade = $cidade;
+    public function setCidade($oCidade){
+        $this->Cidade = $oCidade;
     }
 
     public function getCodigo(){
         return $this->codigo;
     }
 
-    public function setCodigo($codigo){
-        $this->codigo = $codigo;
+    public function setCodigo($iCodigo){
+        $this->codigo = $iCodigo;
     }
 
     public function getNome(){
         return $this->nome;
     }
 
-    public function setNome($nome){
-        $this->nome = $nome;
+    public function setNome($sNome){
+        $this->nome = $sNome;
     }
 
     public function getEndereco(){
         return $this->endereco;
     }
 
-    public function setEndereco($endereco){
-        $this->endereco = $endereco;
+    public function setEndereco($sEndereco){
+        $this->endereco = $sEndereco;
     }
 
     public function getSexo(){
         return $this->sexo;
     }
 
-    public function setSexo($sexo){
-        $this->sexo = $sexo;
+    public function setSexo($sSexo){
+        $this->sexo = $sSexo;
     }
 
     public function getNascimento(){
         return $this->nascimento;
     }
 
-    public function setNascimento($nascimento){
-        $this->nascimento = $nascimento;
+    public function setNascimento($sNascimento){
+        $this->nascimento = $sNascimento;
     }
 
     public function getSaldoDevedor(){
         return $this->saldoDevedor;
     }
 
-    public function setSaldoDevedor($saldo){
-        $this->saldoDevedor = $saldo;
+    public function setSaldoDevedor($fSaldo){
+        $this->saldoDevedor = $fSaldo;
     }
 
     public function getAtivo(){
         return $this->ativo;
     }
 
-    public function setAtivo($ativo){
-        $this->ativo = $ativo;
+    public function setAtivo($bAtivo){
+        $this->ativo = $bAtivo;
     }
 
 }
