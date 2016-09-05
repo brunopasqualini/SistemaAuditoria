@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-class ComponenteCSS {
+class ComponentCSS {
 
     private $class = [];
     private $prop  = [];

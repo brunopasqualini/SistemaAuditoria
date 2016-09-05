@@ -1,7 +1,7 @@
 <?php
 namespace App\Core;
 
-class ComponenteAttr {
+class ComponentAttr {
 
     private $attr = [];
 
