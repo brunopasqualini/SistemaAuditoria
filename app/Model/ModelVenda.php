@@ -30,7 +30,7 @@ class ModelVenda {
     private $quantidade;
 
     /**
-     * @Column(name=venqtd)
+     * @Column(name=vendtpagto)
      */
     private $dataPagamento;
 
