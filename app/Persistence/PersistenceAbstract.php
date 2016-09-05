@@ -18,6 +18,7 @@ abstract class PersistenceAbstract {
 
     public function setModel($oModel){
         $this->Model = $oModel;
+        $this->annotationInfo = [];
         $this->parseAnnotationModel();
     }
 

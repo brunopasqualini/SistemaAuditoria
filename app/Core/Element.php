@@ -16,8 +16,8 @@ class Element implements ElementRenderer{
     protected $childs = [];
 
     public function __construct($sTag, $iType = self::TYPE_CLOSED){
-        $this->Css  = new ComponenteCSS();
-        $this->Attr = new ComponenteAttr();
+        $this->Css  = new ComponentCSS();
+        $this->Attr = new ComponentAttr();
         $this->tag  = $sTag;
         $this->type = $iType;
     }
