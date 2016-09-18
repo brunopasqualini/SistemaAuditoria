@@ -16,7 +16,7 @@ class Config {
     }
 
     private function parseFile($sName){
-        $sPath = \App::getPathRoot() . $sName . '.ini';
+        $sPath = getAbsolutePath() . $sName . '.ini';
         $aInfo = parse_ini_file($sPath, true, INI_SCANNER_TYPED);
         foreach ($aInfo as $sSection => $aConfig) {
             if(count($aConfig) > 0){

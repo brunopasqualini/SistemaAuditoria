@@ -6,7 +6,7 @@ define('ENTER', '
 define('DIRSEP', DIRECTORY_SEPARATOR);
 
 spl_autoload_register(function($sFile) {
-    $sFile = App::getPathRoot() . $sFile . '.php';
+    $sFile = getAbsolutePath() . $sFile . '.php';
     preg_replace('/^App/', 'app', $sFile);
     require_once $sFile;
 });
@@ -40,4 +40,22 @@ function currentTime(){
 
 function now(){
     return currentDate() . ' ' . currentTime();
+}
+
+function fileFromNamespaceExists($sClassName){
+    $sFile = getAbsolutePath() . $sClassName . '.php';
+    preg_replace('/^App/', 'app', $sFile);
+    return file_exists($sFile);
+}
+
+function getRelativePath($sItem){
+    return $sItem . '/';
+}
+
+function getAbsolutePath(){
+    return __DIR__ . DIRSEP;
+}
+
+function getPathFull($sItem, $sDirSeparator = DIRSEP){
+    return getAbsolutePath() . $sItem . $sDirSeparator;
 }

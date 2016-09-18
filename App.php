@@ -2,6 +2,7 @@
 
 use App\Core\Session;
 use App\Core\Config;
+use App\Controller\Controller;
 use App\Core\Database\Connection;
 
 class App {
@@ -32,43 +33,33 @@ class App {
     }
 
     private function dispatch(){
-        $sController = $this->getParam('path',    'index');
-        $sProcess    = $this->getParam('process', 'processa');
-        if(!file_exists("Controller".DIRSEP."Controller{$sController}.php")){
-            $sController = 'ControllerIndex';
+        $sPath       = $this->getParam('path',    'index');
+        $sProcess    = $this->getParam('process', 'process');
+        $sController = Controller::getControllerFromName(ucfirst($sPath));
+        if(!fileFromNamespaceExists($sController)){
+            $sController = Controller::getControllerFromName('Index');
         }
-        $sController = 'App\Controller\\' . $sController;
         $oController = new $sController();
         if(!method_exists($oController, $sProcess)){
-            $sProcess = 'processa';
+            $sProcess = 'process';
         }
         $oController->$sProcess();
     }
 
+    public function redirect($sLocation){
+        $sUrlPath = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+        header('Location: ' . $sUrlPath . $sLocation);
+        die;
+    }
+
     public function getParam($sParam, $xDefault = null){
-        return isset($this->_params[$sParam]) ? $this->_params[$sParam] : $xDefault;
+        return isset($this->_params[$sParam]) ? trim($this->_params[$sParam]) : $xDefault;
     }
 
     private function parseParams(){
         foreach($_REQUEST as $sParam => $sValor){
             $this->_params[$sParam] = $sValor;
         }
-    }
-
-    public static function getPath($item){
-        return $item . DIRSEP;
-    }
-
-    public static function getPathRoot(){
-        return __DIR__ . DIRSEP;
-    }
-
-    public static function getPathFull($item){
-        return self::getPathRoot() . $item . DIRSEP;
-    }
-
-    public static function getPathTemp(){
-        return self::getPathFull('temp') . DIRSEP;
     }
 
 }

@@ -3,10 +3,10 @@ namespace App\Controller;
 
 class ControllerIndex extends Controller{
 
-    public function processa(){
+    public function process(){
         // verificar se já está logado, caso não tiver jogar pra view de login
         $oIndex = new \App\View\ViewLogin();
         $oIndex->render();
     }
-    
+
 }

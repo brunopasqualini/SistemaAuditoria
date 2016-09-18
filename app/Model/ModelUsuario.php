@@ -4,7 +4,7 @@ namespace App\Model;
 /**
  * @Table(name=tbusuario)
  */
-class ModelUsuario {
+class ModelUsuario extends ModelAbstract {
 
     /**
      * Usuário normal
@@ -19,97 +19,45 @@ class ModelUsuario {
     /**
      * @FK
      */
-    private $Cliente;
+    protected $Cliente;
 
     /**
      * @PK
      * @Serial
      * @Column(name=usucodigo)
      */
-    private $codigo;
+    protected $codigo;
 
     /**
      * @Column(name=usulogin)
      */
-    private $login;
+    protected $login;
 
     /**
      * @Column(name=ususenha)
      */
-    private $senha;
+    protected $senha;
 
     /**
      * @Column(name=usuemail)
      */
-    private $email;
+    protected $email;
 
     /**
      * @Column(name=usuativo)
      */
-    private $ativo;
+    protected $ativo;
 
     /**
      * @Column(name=usutipo)
      */
-    private $tipo;
+    protected $tipo;
 
     public function getCliente(){
         if(!isset($this->Cliente)){
             $this->Cliente = new ModelCliente();
         }
         return $this->Cliente;
-    }
-
-    public function setCliente($oCliente){
-        $this->Cliente = $oCliente;
-    }
-
-    public function getCodigo(){
-        return $this->codigo;
-    }
-
-    public function setCodigo($iCodigo){
-        $this->codigo = $iCodigo;
-    }
-
-    public function getLogin(){
-        return $this->login;
-    }
-
-    public function setLogin($sLogin){
-        $this->login = $sLogin;
-    }
-
-    public function getSenha(){
-        return $this->senha;
-    }
-
-    public function setSenha($sSenha){
-        $this->senha = $sSenha;
-    }
-
-    public function getEmail(){
-        return $this->email;
-    }
-
-    public function setEmail($sEmail){
-        $this->email = $sEmail;
-    }
-
-    public function getAtivo(){
-        return $this->ativo;
-    }
-
-    public function setAtivo($bAtivo){
-        $this->ativo = $bAtivo;
-    }
-
-    public function getTipo(){
-        return $this->tipo;
-    }
-
-    public function setTipo($iTipo){
-        $this->tipo = $iTipo;
     }
 
 }

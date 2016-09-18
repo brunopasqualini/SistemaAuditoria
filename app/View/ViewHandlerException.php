@@ -7,8 +7,8 @@ class ViewHandlerException extends ViewDefault{
 
     private $descricaoErro = '';
 
-    protected function createContent(Element $oContainer){
-        $oContainer->addChild($this->criaTitulo());
+    protected function createContent(){
+        $this->criaTitulo();
     }
 
     private function criaTitulo(){
@@ -18,7 +18,7 @@ class ViewHandlerException extends ViewDefault{
         $oTitulo->setText('Ops! Parece que aconteceu um problema');
         $oCtnTitulo->addChild($oTitulo);
         $this->addDescricaoErro($oCtnTitulo);
-        return $oCtnTitulo;
+        $oCtnTitulo->render();
     }
 
     private function addDescricaoErro(Element $oPai){

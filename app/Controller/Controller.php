@@ -3,24 +3,59 @@ namespace App\Controller;
 
 abstract class Controller {
 
-    protected $App;
+    const ACTION_INSERT   = 'insert';
+    const ACTION_UPDATE   = 'update';
+    const ACTION_DELETE   = 'delete';
+    const ACTION_READ     = 'read';
+    const ACTION_GRIDVIEW = 'gridview';
 
-    protected $_fileName;
+    protected $App;
 
     public function __construct(){
         $this->App = \App::getInstance();
-        $this->extractName();
         $this->sendHeaders();
     }
 
-    abstract public function processa();
+    abstract public function process();
 
-    private function sendHeaders(){
+    protected function getPath(){
+        return $this->App->getParam('path');
+    }
+
+    protected function getProcess(){
+        return $this->App->getParam('process');
+    }
+
+    protected function getAction(){
+        return $this->App->getParam('action');
+    }
+
+    protected function isGet(){
+        return $_SERVER['REQUEST_METHOD'] === 'GET';
+    }
+
+    protected function isPost(){
+        return $_SERVER['REQUEST_METHOD'] === 'POST';
+    }
+
+    protected function sendHeaders(){
         header('Content-type: text/html; charset=utf-8');
     }
 
-    protected function extractName(){
-        $this->_fileName = str_replace(__CLASS__, '', get_class($this));
+    public static function getControllerFromName($sName){
+        $sName    = ucfirst($sName);
+        $sPreffix = '\App\Controller\Controller';
+        if(preg_match('/^Form/', $sName, $aMatches)){
+            if(!fileFromNamespaceExists($sPreffix . $sName)){
+                $sName = 'Form';
+            }
+        }
+        else if(preg_match('/^Grid/', $sName, $aMatches)){
+            if(!fileFromNamespaceExists($sPreffix . $sName)){
+                $sName = 'Grid';
+            }
+        }
+        return $sPreffix . ucfirst($sName);
     }
 
 }

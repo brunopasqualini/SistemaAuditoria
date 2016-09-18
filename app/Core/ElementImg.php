@@ -9,7 +9,7 @@ class ElementImg extends Element {
     }
 
     public function setUrl($sSrc){
-        $this->getAttr()->add('src', \App::getPath('img') . $sSrc);
+        $this->getAttr()->add('src', getRelativePath('img') . $sSrc);
     }
 
 }

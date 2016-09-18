@@ -8,12 +8,12 @@ class Form implements ElementRenderer {
 
     private $Form;
 
+    private $params = [];
     private $fields = [];
-    private $path;
-    private $process;
+    private $readonly;
     private $descBtn;
 
-    public function __construct($sPath, $sProcess = 'processa'){
+    public function __construct($sPath, $sProcess){
         $this->setPath($sPath);
         $this->setProcess($sProcess);
         $this->Form = new Element('form');
@@ -32,12 +32,39 @@ class Form implements ElementRenderer {
         return $this;
     }
 
+    public function getFields(){
+        return $this->fields;
+    }
+
+    public function getField($sName){
+        foreach($this->fields as $oField){
+            if($oField->getName() == $sName){
+                return $oField;
+            }
+        }
+    }
+
+    public function addParam($sParam, $sValue = ''){
+        $this->params[$sParam] = $sValue;
+    }
+
     public function setPath($sPath){
-        $this->path = $sPath;
+        $this->addParam('path', $sPath);
     }
 
     public function setProcess($sProcess){
-        $this->process = $sProcess;
+        $this->addParam('process', $sProcess);
+    }
+
+    public function setAction($sAction){
+        $this->addParam('action', $sAction);
+    }
+
+    public function setReadonly($bReadonly){
+        $this->readonly = $bReadonly;
+        foreach($this->fields as $oField){
+            $oField->setReadonly($bReadonly);
+        }
     }
 
     public function setDescriptionBtn($sDescription){
@@ -45,7 +72,8 @@ class Form implements ElementRenderer {
     }
 
     public function render(){
-        $sUrl = "?path={$this->path}&process={$this->process}";
+        $sParam = http_build_query($this->params);
+        $sUrl   = "?{$sParam}";
         $this->Form->getAttr()->add('action', $sUrl);
         foreach($this->fields as $oField){
             $oContainer = new Element('div');
@@ -62,16 +90,17 @@ class Form implements ElementRenderer {
             $oContainer->addChild($oField, $oLabel);
             $this->Form->addChild($oContainer);
         }
-        $oSubmit = new Element('button', Element::TYPE_CONTENT);
-        $oSubmit->setText($this->descBtn);
-        $oSubmit->getCss()
-                ->addClass('btn cor-tema waves-effect')
-                ->add('width', '100%');
-        $oSubmit->getAttr()
-                ->add('type', 'submit')
-                ->add('name', 'enviar');
-
-        $this->Form->addChild($oSubmit);
+        if($this->readonly !== true){
+            $oSubmit = new Element('button', Element::TYPE_CONTENT);
+            $oSubmit->setText($this->descBtn);
+            $oSubmit->getCss()
+                    ->addClass('btn cor-tema waves-effect')
+                    ->add('width', '100%');
+            $oSubmit->getAttr()
+                    ->add('type', 'submit')
+                    ->add('name', 'enviar');
+            $this->Form->addChild($oSubmit);
+        }
         $this->Form->render();
     }
 

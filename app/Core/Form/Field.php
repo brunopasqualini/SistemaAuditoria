@@ -2,6 +2,7 @@
 namespace App\Core\Form;
 
 use App\Core\Element;
+use App\Core\Exception\Form\EmptyValueFieldException;
 
 class Field extends Element {
 
@@ -9,11 +10,12 @@ class Field extends Element {
     private $label;
     private $icon;
 
-    public function __construct($sTag, $sName, $sLabel, $iType = Element::TYPE_OPENED){
+    public function __construct($sTag, $sName, $sLabel, $bRequired = false, $iType = Element::TYPE_OPENED){
         parent::__construct('input', $iType);
         $this->getAttr()->add('type', $sTag);
         $this->setName($sName);
         $this->setLabel($sLabel);
+        $this->setRequired($bRequired);
     }
 
     public function setName($sName){
@@ -43,7 +45,14 @@ class Field extends Element {
         return $this->icon;
     }
 
+    public function checkValueBeforeSet($sValue){
+        if($this->isRequired() && isEmpty($sValue)){
+            throw new EmptyValueFieldException($this->getLabel());
+        }
+    }
+
     public function setValue($sValue){
+        $this->checkValueBeforeSet($sValue);
         $this->getAttr()->add('value', $sValue);
         return $this;
     }
@@ -57,7 +66,7 @@ class Field extends Element {
         return $this;
     }
 
-    public function getRequired(){
+    public function isRequired(){
         return $this->required;
     }
 
