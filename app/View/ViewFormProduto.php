@@ -13,7 +13,7 @@ class ViewFormProduto extends ViewForm {
     }
 
     protected function getFormPath(){
-        return 'produto';
+        return 'formProduto';
     }
 
     protected function initForm(Form $oForm){
