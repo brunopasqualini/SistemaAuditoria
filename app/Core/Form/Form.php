@@ -72,9 +72,7 @@ class Form implements ElementRenderer {
     }
 
     public function render(){
-        $sParam = http_build_query($this->params);
-        $sUrl   = "?{$sParam}";
-        $this->Form->getAttr()->add('action', $sUrl);
+        $this->Form->getAttr()->add('action', $this->getQueryString());
         foreach($this->fields as $oField){
             $oContainer = new Element('div');
             $oContainer->getCss()->addClass('input-field');
@@ -104,4 +102,7 @@ class Form implements ElementRenderer {
         $this->Form->render();
     }
 
+    public function getQueryString(){
+        return '?' . http_build_query($this->params);
+    }
 }

@@ -8,6 +8,7 @@
                 </div>
             </div>
         </header>
+        <?php \App\View\TemplateLoader::flush('menu'); ?>
         <div class="container">
             {{content}}
         </div>
