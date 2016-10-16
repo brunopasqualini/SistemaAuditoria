@@ -3,10 +3,12 @@ namespace App\Core\Form;
 
 use App\Core\ElementRenderer;
 use App\Core\Element;
+use App\Core\Form\FieldHidden;
 
 class Form implements ElementRenderer {
 
     private $Form;
+    private $Button;
 
     private $params = [];
     private $fields = [];
@@ -32,6 +34,12 @@ class Form implements ElementRenderer {
         return $this;
     }
 
+    public function addFieldHidden($sName, $sValue){
+        $oFieldHidden = new FieldHidden($sName);
+        $oFieldHidden->setValue($sValue);
+        $this->addField($oFieldHidden);
+    }
+
     public function getFields(){
         return $this->fields;
     }
@@ -42,6 +50,14 @@ class Form implements ElementRenderer {
                 return $oField;
             }
         }
+    }
+
+    public function getCss(){
+        return $this->Form->getCss();
+    }
+
+    public function getAttr(){
+        return $this->Form->getAttr();
     }
 
     public function addParam($sParam, $sValue = ''){
@@ -74,6 +90,10 @@ class Form implements ElementRenderer {
     public function render(){
         $this->Form->getAttr()->add('action', $this->getQueryString());
         foreach($this->fields as $oField){
+            if($oField instanceof FieldHidden){
+                $this->Form->addChild($oField);
+                continue;
+            }
             $oContainer = new Element('div');
             $oContainer->getCss()->addClass('input-field');
             $oLabel = new Element('label', Element::TYPE_CONTENT);
@@ -89,17 +109,23 @@ class Form implements ElementRenderer {
             $this->Form->addChild($oContainer);
         }
         if($this->readonly !== true){
-            $oSubmit = new Element('button', Element::TYPE_CONTENT);
-            $oSubmit->setText($this->descBtn);
-            $oSubmit->getCss()
-                    ->addClass('btn cor-tema waves-effect')
-                    ->add('width', '100%');
-            $oSubmit->getAttr()
-                    ->add('type', 'submit')
-                    ->add('name', 'enviar');
-            $this->Form->addChild($oSubmit);
+            $this->Form->addChild($this->getButton());
         }
         $this->Form->render();
+    }
+
+    private function getButton(){
+        if(!isset($this->Button)){
+            $this->Button = new Element('button', Element::TYPE_CONTENT);
+            $this->Button->setText($this->descBtn);
+            $this->Button->getCss()->addClass('btn cor-tema waves-effect')->add('width', '100%');
+            $this->Button->getAttr()->add('type', 'submit')->add('name', 'enviar');
+        }
+        return $this->Button;
+    }
+
+    public function setButton(Element $oButton){
+        $this->Button = $oButton;
     }
 
     public function getQueryString(){

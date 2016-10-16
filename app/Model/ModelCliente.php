@@ -55,4 +55,17 @@ class ModelCliente extends ModelAbstract {
         return $this->Cidade;
     }
 
+    public function jsonSerialize(){
+        return [
+            'codigo'       => $this->getCodigo(),
+            'nome'         => $this->getNome(),
+            'endereco'     => $this->getEndereco(),
+            'sexo'         => $this->getSexo(),
+            'nascimento'   => $this->getNascimento(),
+            'saldodevedor' => $this->getSaldoDevedor(),
+            'ativo'        => $this->getAtivo(),
+            'cidade'       => $this->getCidade()->jsonSerialize()
+        ];
+    }
+
 }

@@ -5,13 +5,17 @@ class ComponentAttr {
 
     private $attr = [];
 
-    public function add($aAttr, $xValue = null){
-        $this->attr[$aAttr] = $xValue;
+    public function add($sAttr, $xValue = null){
+        $this->attr[$sAttr] = $xValue;
         return $this;
     }
 
     public function get($sAttr){
-        return isset($this->attr) ? $this->attr[$sAttr] : null;
+        return isset($this->attr[$sAttr]) ? $this->attr[$sAttr] : null;
+    }
+
+    public function has($sAttr){
+        return isset($this->attr[$sAttr]);
     }
 
     public function del($sAttr){

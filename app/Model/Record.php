@@ -14,6 +14,18 @@ abstract class Record {
         $this->Query      = new Query();
     }
 
+    public function getAll($iChildLevel = false){
+        $aRecord = [];
+        $this->Query->setSql($this->getSelect());
+        $this->Query->execute();
+        while($aFetch = $this->Query->fetch()){
+            $sNewModel = get_class($this);
+            $aRecord[] = new $sNewModel();
+            self::setFromFetch($aFetch, $aRecord[count($aRecord) - 1]);
+        }
+        return $aRecord;
+    }
+
     public function read($iChildLevel = false){
         $aColumns = $this->Reflection->getColumns();
         $aWhere   = [];

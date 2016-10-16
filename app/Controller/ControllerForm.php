@@ -2,8 +2,14 @@
 namespace App\Controller;
 
 use App\Model\Bean;
+use App\Core\Form\FormConfirm;
 
 class ControllerForm extends Controller {
+
+    const ACTION_INSERT = 'insert';
+    const ACTION_UPDATE = 'update';
+    const ACTION_DELETE = 'delete';
+    const ACTION_READ   = 'read';
 
     protected $Model;
     protected $View;
@@ -19,12 +25,15 @@ class ControllerForm extends Controller {
             $this->renderView();
             return;
         }
-        $this->setViewValuesFromRequest();
-        $this->setModelValuesFromView();
+        if($this->getAction() !== self::ACTION_DELETE){
+            $this->setViewValuesFromRequest();
+            $this->setModelValuesFromView();
+        }
         $this->App->DB->begin();
         $sMethod = 'process' . ucfirst($this->getAction());
         $this->$sMethod();
         $this->App->DB->commit();
+        echo json_encode(['status' => true, 'message' => 'Sucesso']);
     }
 
     protected function processInsert(){
@@ -52,16 +61,30 @@ class ControllerForm extends Controller {
             $this->View->getForm()->setReadonly($this->getAction() === self::ACTION_READ);
         }
         else if($this->getAction() == self::ACTION_DELETE){
-            $this->View->getForm()->setAction(self::ACTION_INSERT);
+            $oConfirm = new FormConfirm($this->getPath(), $this->getAction());
+            $aFields  = array_keys($this->Model->getPkComposition());
+            foreach($aFields as $sField){
+                $sValue = $this->App->getParam($sField, false);
+                if($sValue !== false){
+                    $oConfirm->addParam($sField, $sValue);
+                }
+            }
+            $oConfirm->render();
         }
-        $this->View->render();
+        if(!$this->isAjax()){
+            $this->View->render();
+        }else{
+            $this->View->renderAsModal();
+        }
     }
 
     protected function setModelIdentifiersValues($fnCallback = null){
         $aFields = array_keys($this->Model->getPkComposition());
         foreach($aFields as $sField){
-            $sValue = $this->App->getParam($sField);
-            //DAR EXECEÇÃO SE TIVER EM BRANCO a chave
+            $sValue = $this->App->getParam($sField, false);
+            if($sValue === false){
+                throw new \App\Core\Exception\Form\EmptyValueFieldException($sField);
+            }
             Bean::set($sField, $sValue, $this->Model);
             if(is_callable($fnCallback)){
                 $fnCallback($sField, $sValue);
@@ -92,7 +115,7 @@ class ControllerForm extends Controller {
     }
 
     protected function getView(){
-        $sView = '\App\View\View'.ucfirst($this->getPath());
+        $sView = '\App\View\Form\View'.ucfirst($this->getPath());
         $oView = new $sView();
         $oView->getForm()->setAction($this->getAction());
         return $oView;

@@ -1,17 +1,19 @@
 <?php
-namespace App\View;
+namespace App\View\Form;
 
+use App\View\ViewDefault;
 use App\Core\Element;
 use App\Core\Form\Form;
+use App\Core\ElementModal;
 
 abstract class ViewForm extends ViewDefault {
 
-    //http://demo.geekslabs.com/materialize/v3.1/form-validation.html
-
     private $Form;
+    private $path;
     private $message;
 
-    public function __construct(){
+    public function __construct($sPath){
+        $this->path = $sPath;
         $this->Form = $this->getForm();
         $this->initForm($this->Form);
     }
@@ -20,26 +22,23 @@ abstract class ViewForm extends ViewDefault {
 
     public function getForm(){
         if(!isset($this->Form)){
-            $this->Form = $this->getFormInstance();
+            $this->Form = new Form($this->path, 'process');
             $this->Form->setDescriptionBtn($this->getDescriptionFromAction());
         }
         return $this->Form;
-    }
-
-    private function getFormInstance(){
-        return new Form($this->getFormPath(), $this->getFormProcess());
-    }
-
-    abstract protected function getFormPath();
-
-    protected function getFormProcess(){
-        return 'process';
     }
 
     protected function createContent(){
         $this->criaTitulo();
         $this->criaAreaMessage();
         $this->Form->render();
+    }
+
+    public function renderAsModal(){
+        $this->Form->getAttr()->add('ng-submit', 'onSubmitForm($event)');
+        ob_start();
+        $this->Form->render();
+        ElementModal::renderContent(ob_get_clean());
     }
 
     public function setTitle($sTitle){
@@ -76,11 +75,11 @@ abstract class ViewForm extends ViewDefault {
 
     protected function getDescriptionFromAction(){
         switch (\App::getInstance()->getParam('action')) {
-            case \App\Controller\Controller::ACTION_INSERT:
+            case \App\Controller\ControllerForm::ACTION_INSERT:
                 return 'Incluir';
-            case \App\Controller\Controller::ACTION_UPDATE:
+            case \App\Controller\ControllerForm::ACTION_UPDATE:
                 return 'Alterar';
-            case \App\Controller\Controller::ACTION_READ:
+            case \App\Controller\ControllerForm::ACTION_READ:
                 return 'Visualizar';
         }
     }

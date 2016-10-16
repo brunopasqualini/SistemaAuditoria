@@ -22,4 +22,12 @@ class ModelCidade extends ModelAbstract {
      */
     protected $estado;
 
+    public function jsonSerialize(){
+        return [
+            'cep'    => $this->getCep(),
+            'nome'   => $this->getNome(),
+            'estado' => $this->getEstado()
+        ];
+    }
+
 }

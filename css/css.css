@@ -1,4 +1,4 @@
-.cor-tema{
+.cor-tema, .waves-effect.waves-cor-tema .waves-ripple{
     background-color: #2196f3 !important;
 }
 .titulo {
@@ -12,4 +12,11 @@
 }
 .card-panel{
     padding: 12px;
+}
+table.grid-view tr td.grid-action{
+    width:1%;
+    white-space:nowrap;
+}
+.modal .modal-content, .modal .modal-loading {
+    padding: 24px;
 }

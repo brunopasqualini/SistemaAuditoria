@@ -16,6 +16,11 @@ class ComponentCSS {
         return $this;
     }
 
+    public function clearClass(){
+        $this->class = [];
+        return $this;
+    }
+
     public function __toString() {
         $sClass = implode(' ', $this->class);
         $sClass = isEmpty($sClass) ? '' : 'class="'.$sClass.'"';

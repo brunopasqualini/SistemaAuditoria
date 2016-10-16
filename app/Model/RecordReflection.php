@@ -46,12 +46,28 @@ class RecordReflection {
                     $aColumns[$oProp->getName()] = $aColumn;
                 }
                 if($aColumn['pk']){
-                    $this->pkComposition[$oProp->getName()] = $aColumn;
+                    if($oAnnotation->hasAnnotation('FK')){
+                        $aPKComposition      = $this->getPKFromFK($oProp->getName());
+                        $this->pkComposition = array_merge($this->pkComposition, $aPKComposition);
+                        $aColumns = array_merge($aColumns, $aPKComposition);
+                    }else{
+                        $this->pkComposition[$oProp->getName()] = $aColumn;
+                    }
                 }
             }
             $this->annotationInfo['columns'] = $aColumns;
         }
         return $this->annotationInfo['columns'];
+    }
+
+    private function getPKFromFK($sName){
+        $sModelFK = '\App\Model\Model'.$sName;
+        $oModelFK = new $sModelFK();
+        $aPKComposition = [];
+        foreach($oModelFK->getPkComposition() as $sNameModel => $aInfo){
+            $aPKComposition[$sName . '.' . $sNameModel] = $aInfo;
+        }
+        return $aPKComposition;
     }
 
 }

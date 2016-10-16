@@ -7,7 +7,10 @@ abstract class ViewDefault implements ElementRenderer{
 
     private $title;
     private $aCss = [];
-    private $aJs  = [];
+    private $aJs  = [
+        'src'      => [],
+        'internal' => []
+    ];
 
     protected function beforeRender() {
         $this->addCssExternal('https://fonts.googleapis.com/icon?family=Material+Icons')
@@ -46,9 +49,11 @@ abstract class ViewDefault implements ElementRenderer{
     }
 
     private function getJs(){
-        return implode('', array_map(function($sSrc) {
+        $sScript  = implode('', array_map(function($sSrc) {
             return '<script src="'.$sSrc.'"></script>';
-        }, $this->aJs));
+        }, $this->aJs['src']));
+        $sScript .= '<script>' . implode('', $this->aJs['internal']) . '</script>';
+        return $sScript;
     }
 
     private function createBody() {
@@ -60,8 +65,7 @@ abstract class ViewDefault implements ElementRenderer{
     abstract protected function createContent();
 
     protected function addCss($sFile){
-        $this->aCss[] = getRelativePath('css') . $sFile . '.css';
-        return $this;
+        return $this->addCssExternal(getRelativePath('css') . $sFile . '.css');
     }
 
     protected function addCssExternal($src){
@@ -70,7 +74,14 @@ abstract class ViewDefault implements ElementRenderer{
     }
 
     protected function addJs($sFile){
-        $this->aJs[] = getRelativePath('js') . $sFile . '.js';
+        $this->aJs['src'][] = getRelativePath('js') . $sFile . '.js';
+        return $this;
+    }
+
+    protected function addJsInternal($sFile){
+        $sFile   = getPathFull('app' . DIRSEP . 'View' . DIRSEP . 'script') . $sFile . '.js';
+        $sScript = file_get_contents($sFile);
+        $this->aJs['internal'][] = $sScript;
         return $this;
     }
 

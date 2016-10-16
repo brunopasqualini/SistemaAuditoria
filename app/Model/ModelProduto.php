@@ -28,4 +28,13 @@ class ModelProduto extends ModelAbstract {
      */
     protected $estoque;
 
+    public function jsonSerialize(){
+        return [
+            'codigo'    => $this->getCodigo(),
+            'descricao' => $this->getDescricao(),
+            'preco'     => $this->getPreco(),
+            'estoque'   => $this->getEstoque()
+        ];
+    }
+
 }

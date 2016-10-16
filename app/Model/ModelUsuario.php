@@ -60,4 +60,15 @@ class ModelUsuario extends ModelAbstract {
         return $this->Cliente;
     }
 
+    public function jsonSerialize(){
+        return [
+            'codigo'  => $this->getCodigo(),
+            'login'   => $this->getLogin(),
+            'email'   => $this->getEmail(),
+            'ativo'   => $this->getAtivo(),
+            'tipo'    => $this->getTipo(),
+            'cliente' => $this->getCliente()->jsonSerialize()
+        ];
+    }
+
 }

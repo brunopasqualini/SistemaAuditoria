@@ -53,4 +53,15 @@ class ModelVenda extends ModelAbstract {
         return $this->Produto;
     }
 
+    public function jsonSerialize(){
+        return [
+            'data'          => $this->getData(),
+            'quantidade'    => $this->getQuantidade(),
+            'datapagamento' => $this->getDataPagamento(),
+            'valorpago'     => $this->getValorPago(),
+            'cliente'       => $this->getCliente()->jsonSerialize(),
+            'produto'       => $this->getProduto()->jsonSerialize()
+        ];
+    }
+
 }

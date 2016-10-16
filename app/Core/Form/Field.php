@@ -10,9 +10,9 @@ class Field extends Element {
     private $label;
     private $icon;
 
-    public function __construct($sTag, $sName, $sLabel, $bRequired = false, $iType = Element::TYPE_OPENED){
-        parent::__construct('input', $iType);
-        $this->getAttr()->add('type', $sTag);
+    public function __construct($sType, $sName, $sLabel, $bRequired = false, $iType = Element::TYPE_OPENED, $sTag = 'input'){
+        parent::__construct($sTag, $iType);
+        $this->getAttr()->add('type', $sType);
         $this->setName($sName);
         $this->setLabel($sLabel);
         $this->setRequired($bRequired);

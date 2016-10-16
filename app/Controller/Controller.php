@@ -3,12 +3,6 @@ namespace App\Controller;
 
 abstract class Controller {
 
-    const ACTION_INSERT   = 'insert';
-    const ACTION_UPDATE   = 'update';
-    const ACTION_DELETE   = 'delete';
-    const ACTION_READ     = 'read';
-    const ACTION_GRIDVIEW = 'gridview';
-
     protected $App;
 
     public function __construct(){
@@ -38,8 +32,27 @@ abstract class Controller {
         return $_SERVER['REQUEST_METHOD'] === 'POST';
     }
 
+    protected function isAjax(){
+        return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && $_SERVER['HTTP_X_REQUESTED_WITH'] === 'XMLHttpRequest';
+    }
+
     protected function sendHeaders(){
+        $sAccept = isset($_SERVER['HTTP_ACCEPT']) && !isEmpty(isset($_SERVER['HTTP_ACCEPT'])) ? $_SERVER['HTTP_ACCEPT'] : 'text/html';
+        switch(true){
+            case preg_match('/application\/json/', $sAccept):
+                $this->sendHeadersAsJson();
+                break;
+            default:
+                $this->sendHeadersAsHtml();
+        }
+    }
+
+    protected function sendHeadersAsHtml(){
         header('Content-type: text/html; charset=utf-8');
+    }
+
+    protected function sendHeadersAsJson(){
+        header('Content-type: application/json');
     }
 
     public static function getControllerFromName($sName){

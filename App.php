@@ -57,6 +57,12 @@ class App {
     }
 
     private function parseParams(){
+        $aRaw = json_decode(file_get_contents('php://input'), true);
+        if(is_array($aRaw)){
+            foreach($aRaw as $sParam => $sValor){
+                $_REQUEST[$sParam] = $sValor;
+            }
+        }
         foreach($_REQUEST as $sParam => $sValor){
             $this->_params[$sParam] = $sValor;
         }

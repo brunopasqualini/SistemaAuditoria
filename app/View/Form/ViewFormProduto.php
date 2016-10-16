@@ -1,5 +1,5 @@
 <?php
-namespace App\View;
+namespace App\View\Form;
 
 use App\Core\Form\Form;
 use App\Core\Form\Field;
@@ -9,11 +9,7 @@ class ViewFormProduto extends ViewForm {
 
     public function __construct(){
         $this->setTitle('Produto');
-        parent::__construct();
-    }
-
-    protected function getFormPath(){
-        return 'formProduto';
+        parent::__construct('formProduto');
     }
 
     protected function initForm(Form $oForm){
