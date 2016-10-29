@@ -21,13 +21,11 @@ appGrid.controller('gridCtrl', ['$scope', '$http', '$compile', '$rootElement', f
         angular.forEach(identifiers, function(value) {
             this[value] = record[value];
         }, data);
-        loadModalForm(target.data('src'), data, function() {
-            Materialize.updateTextFields();
-        });
+        loadModalForm(target.data('src'), data);
     };
     $scope.onSubmitForm = function(event){
         var form   = angular.element(event.currentTarget);
-        var inputs = $('input', form);
+        var inputs = $('input, select', form);
         var data   = {};
         inputs.each(function() {
             data[this.name] = $(this).val();
@@ -53,6 +51,8 @@ appGrid.controller('gridCtrl', ['$scope', '$http', '$compile', '$rootElement', f
             ele.find('> div').filter('.modal-loading').hide();
             ele.find('> div').filter('.modal-content').show();
             $compile(ele.contents())($scope);
+            $('select').material_select();
+            Materialize.updateTextFields();
             if($.isFunction(fnCallback)){ fnCallback(); }
         });
     }

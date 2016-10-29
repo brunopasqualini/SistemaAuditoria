@@ -5,7 +5,7 @@ class ComponentAttr {
 
     private $attr = [];
 
-    public function add($sAttr, $xValue = null){
+    public function add($sAttr, $xValue = ''){
         $this->attr[$sAttr] = $xValue;
         return $this;
     }
@@ -26,7 +26,7 @@ class ComponentAttr {
         $sAttribute = '';
         foreach($this->attr as $sAttr => $xValue){
             $sAttribute .= ' ' . $sAttr;
-            if(!is_null($xValue)){
+            if(!isEmpty($xValue)){
                 $sAttribute .= '="'.$xValue.'"';
             }
         }

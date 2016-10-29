@@ -11,8 +11,8 @@ class FieldCombo extends Field {
     }
 
     public function setCombo(Array $aCombo){
-        foreach($aCombo as $aItem){
-            $this->newOption($aItem[0], $aItem[1]);
+        foreach($aCombo as $sValue => $sDescription){
+            $this->newOption($sValue, $sDescription);
         }
     }
 

@@ -21,6 +21,13 @@ class ModelCidade extends ModelAbstract {
      * @Column(name=cidestado)
      */
     protected $estado;
+    
+    public static function getEstados(){
+        return [
+            'SC' => 'Santa Catarina',
+            'PR' => 'Parana'
+        ];
+    }
 
     public function jsonSerialize(){
         return [

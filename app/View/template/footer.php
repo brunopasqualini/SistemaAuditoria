@@ -6,7 +6,7 @@
         <div class="row">
             <div class="col l6 s12">
                 <h5 class="white-text">Auditoria SC LTDA</h5>
-                <p class="grey-text text-lighten-4">Endereço do seu Pedro</p>
+                <p class="grey-text text-lighten-4">Endereço das nuvens</p>
                 <p class="grey-text text-lighten-4">Fone: (XX) 0000-0000</p>
             </div>
         </div>

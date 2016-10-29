@@ -7,7 +7,7 @@
                 <li><a href="?path=gridProduto">Produto</a></li>
                 <li><a href="?path=gridCidade">Cidade</a></li>
                 <li><a href="?path=gridCliente">Cliente</a></li>
-                <li><a href="?path=gridLogs">Venda</a></li>
+                <li><a href="?path=gridVenda">Venda</a></li>
                 <li><a href="?path=gridProduto">Consultas de Logs</a></li>
             </ul>
             <a href="#" data-activates="mobile-menu" class="button-collapse"><i class="material-icons">menu</i></a>
@@ -16,6 +16,7 @@
                 <li><a href="?path=gridProduto">Produto</a></li>
                 <li><a href="?path=gridCidade">Cidade</a></li>
                 <li><a href="?path=gridCliente">Cliente</a></li>
+                <li><a href="?path=gridVenda">Venda</a></li>
                 <li><a href="?path=gridLogs">Consulta de Logs</a></li>
                 <li><a href="?path=logout">Sair</a></li>
             </ul>

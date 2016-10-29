@@ -47,6 +47,16 @@ class ModelUsuario extends ModelAbstract {
      * @Column(name=usuativo)
      */
     protected $ativo;
+    
+    /**
+     * @Column(name=ususenhaexpiracao)
+     */
+    protected $senhaExpiracao;
+ 
+    /**
+     * @Column(name=usutentativalogin)
+     */
+    protected $tentativasLogin;
 
     /**
      * @Column(name=usutipo)
@@ -69,7 +79,7 @@ class ModelUsuario extends ModelAbstract {
         }
         return $this->Cliente;
     }
-
+	
     public function jsonSerialize(){
         return [
             'codigo'  => $this->getCodigo(),

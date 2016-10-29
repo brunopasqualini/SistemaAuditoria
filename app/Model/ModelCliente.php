@@ -5,6 +5,9 @@ namespace App\Model;
  * @Table(name=tbcliente)
  */
 class ModelCliente extends ModelAbstract {
+    
+    const SEXO_MASCULINO = 1;
+    const SEXO_FEMININO = 2;
 
     /**
      * @FK
