@@ -1,15 +1,17 @@
 <?php
 namespace App\Controller;
 
-class ControllerGrid extends Controller {
+use App\Model\ModelAbstract;
+
+class ControllerGrid extends ControllerUserSession {
 
     private $Model;
     private $View;
 
     public function __construct(){
         parent::__construct();
-        $this->Model = $this->getModel();
         $this->View  = $this->getView();
+        $this->Model = $this->getModel();
     }
 
     public function process(){
@@ -20,7 +22,7 @@ class ControllerGrid extends Controller {
     }
 
     public function getRecords(){
-        echo json_encode($this->getModel()->getAll());
+        echo json_encode(ModelAbstract::getAll($this->Model));
     }
 
     protected function getView(){

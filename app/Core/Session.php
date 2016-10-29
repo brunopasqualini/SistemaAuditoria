@@ -72,11 +72,19 @@ class Session implements \SessionHandlerInterface {
         $_SESSION[$sKey] = $bSerialize ? serialize($xVal) : $xVal;
     }
 
-    public static function get($sKey, $xDefault = '', $bUnserialize = false){
+    public static function get($sKey, $xDefault = null, $bUnserialize = false){
         if(!isset($_SESSION[$sKey])){
             return $xDefault;
         }
         return $bUnserialize ? unserialize($_SESSION[$sKey]) : $_SESSION[$sKey];
+    }
+    
+    public static function del($sKey){
+        unset($_SESSION[$sKey]);
+    }
+    
+    public static function finish(){
+        session_destroy();
     }
 
 }

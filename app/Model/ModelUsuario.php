@@ -52,6 +52,16 @@ class ModelUsuario extends ModelAbstract {
      * @Column(name=usutipo)
      */
     protected $tipo;
+    
+    /**
+     * @Column(name=ususenhaexpiracao)
+     */
+    protected $senhaExpiracao;
+    
+    /**
+     * @Column(name=usutentativalogin)
+     */
+    protected $tentativaLogin;
 
     public function getCliente(){
         if(!isset($this->Cliente)){
@@ -67,7 +77,8 @@ class ModelUsuario extends ModelAbstract {
             'email'   => $this->getEmail(),
             'ativo'   => $this->getAtivo(),
             'tipo'    => $this->getTipo(),
-            'cliente' => $this->getCliente()->jsonSerialize()
+            'senhaexpiracao' => $this->getSenhaExpiracao(),
+            'cliente'        => $this->getCliente()->jsonSerialize()
         ];
     }
 

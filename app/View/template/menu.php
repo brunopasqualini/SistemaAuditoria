@@ -1,7 +1,7 @@
 <nav class="cor-tema">
     <div class="nav-wrapper">
         <div class="container">
-            <a href="#" class="right hide-on-med-and-down">Sair</a>
+            <a href="?path=logout" class="right hide-on-med-and-down">Sair</a>
             <ul class="left hide-on-med-and-down">
                 <li><a href="index.php">Início</a></li>
                 <li><a href="?path=gridProduto">Produto</a></li>
@@ -17,7 +17,7 @@
                 <li><a href="?path=gridCidade">Cidade</a></li>
                 <li><a href="?path=gridCliente">Cliente</a></li>
                 <li><a href="?path=gridLogs">Consulta de Logs</a></li>
-                <li><a href="#">Sair</a></li>
+                <li><a href="?path=logout">Sair</a></li>
             </ul>
         </div>
     </div>

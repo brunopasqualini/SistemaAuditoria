@@ -4,7 +4,7 @@ namespace App\Controller;
 use App\Model\Bean;
 use App\Core\Form\FormConfirm;
 
-class ControllerForm extends Controller {
+class ControllerForm extends ControllerUserSession {
 
     const ACTION_INSERT = 'insert';
     const ACTION_UPDATE = 'update';
