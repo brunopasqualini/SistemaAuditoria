@@ -21,7 +21,7 @@ class ViewGridCliente extends ViewGrid {
         $oGrid->addField(new GridField('sexo',         'Sexo'));
         $oGrid->addField(new GridField('nascimento',   'Nascimento'));
         $oGrid->addField(new GridField('saldodevedor', 'Saldo Devedor'));
-        $oGrid->addField(new GridField('cidade',       'Cidade'));
+        $oGrid->addField(new GridField('cidade.nome',       'Cidade'));
         $oGrid->addField(new GridField('ativo',       'Ativo'));
 
         $oForm = new ViewFormCliente();

@@ -1,8 +1,7 @@
 <?php
 ini_set('date.timezone', 'America/Sao_Paulo');
 
-define('ENTER', '
-');
+define('ENTER', '');
 define('DIRSEP', DIRECTORY_SEPARATOR);
 
 spl_autoload_register(function($sFile) {

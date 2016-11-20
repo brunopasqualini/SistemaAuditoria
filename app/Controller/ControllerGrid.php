@@ -22,7 +22,7 @@ class ControllerGrid extends ControllerUserSession {
     }
 
     public function getRecords(){
-        echo json_encode(ModelAbstract::getAll($this->Model));
+        echo json_encode(ModelAbstract::getAll($this->Model, 1));
     }
 
     protected function getView(){

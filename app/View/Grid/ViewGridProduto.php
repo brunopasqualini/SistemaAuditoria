@@ -6,6 +6,7 @@ use App\Core\Grid\GridField;
 use App\Controller\ControllerForm;
 use App\View\Form\ViewFormProduto;
 
+
 class ViewGridProduto extends ViewGrid {
 
     public function __construct(){

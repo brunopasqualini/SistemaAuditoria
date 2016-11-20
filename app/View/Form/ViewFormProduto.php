@@ -7,9 +7,9 @@ use App\Core\Form\FieldNumeric;
 
 class ViewFormProduto extends ViewForm {
 
-    public function __construct(){
+    public function __construct($sPath = 'formProduto'){
         $this->setTitle('Produto');
-        parent::__construct('formProduto');
+        parent::__construct($sPath);
     }
 
     protected function initForm(Form $oForm){

@@ -15,7 +15,7 @@ class ComponentAttr {
     }
 
     public function has($sAttr){
-        return isset($this->attr[$sAttr]);
+        return array_key_exists($sAttr, $this->attr);
     }
 
     public function del($sAttr){
@@ -26,7 +26,7 @@ class ComponentAttr {
         $sAttribute = '';
         foreach($this->attr as $sAttr => $xValue){
             $sAttribute .= ' ' . $sAttr;
-            if(!isEmpty($xValue)){
+            if(!is_null($xValue)){
                 $sAttribute .= '="'.$xValue.'"';
             }
         }

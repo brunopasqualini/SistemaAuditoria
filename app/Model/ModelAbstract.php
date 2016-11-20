@@ -7,7 +7,7 @@ abstract class ModelAbstract implements \JsonSerializable {
         preg_match('/^([a-z]*)(.*)/', $sMethod, $aMatches);
         $sTypeMethod = $aMatches[1];
         $sProperty   = $aMatches[2];
-        if(!isset($this->$sProperty)){
+        if(!property_exists($this, $sProperty)){
             $sProperty = lcfirst($sProperty);
         }
         if($sTypeMethod === 'set'){

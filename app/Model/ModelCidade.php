@@ -25,7 +25,28 @@ class ModelCidade extends ModelAbstract {
     public static function getEstados(){
         return [
             'SC' => 'Santa Catarina',
-            'PR' => 'Parana'
+            'AC' => 'Acred',
+            'AM' => 'Amazonas',
+            'CE' => 'Ceará',
+            'DF' => 'Distrito Federal',
+            'ES' => 'Espirito Santo',
+            'GO' => 'Goiás',
+            'MA' => 'Maranhão',
+            'MT' => 'Mata Grosso',
+            'MS' => 'Mato Grosso do Sul',
+            'MG' => 'Minas Gerais',
+            'PA' => 'Pará',
+            'PB' => 'Paraíba',
+            'PR' => 'Paraná',
+            'PE' => 'Pernambuco',
+            'PI' => 'Piauí',
+            'RJ' => 'Rio de Janeiro',
+            'RN' => 'Rio Grando do Norte',
+            'RS' => 'Rio Grando do Sul',
+            'RO' => 'Rondônia',
+            'SC' => 'Santa Catarina',
+            'SE' => 'Sergipe',
+            'TO' => 'Tocantins'
         ];
     }
 

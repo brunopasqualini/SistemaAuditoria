@@ -17,7 +17,7 @@ class ViewGridCidade extends ViewGrid {
         $oGrid->setPath('gridCidade');
         $oGrid->addField(new GridField('cep',    'CEP'));
         $oGrid->addField(new GridField('nome',   'Nome'));
-        $oGrid->addField(new GridField('estado', 'Estado'));;
+        $oGrid->addField(new GridField('estado', 'Estado'));
 
         $oForm = new ViewFormCidade();
         $oInc  = $oGrid->addAction('Incluir',    '',           $oForm->getForm(), ControllerForm::ACTION_INSERT, false);

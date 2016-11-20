@@ -27,7 +27,7 @@ abstract class ControllerUserSession extends Controller {
     }
     
     protected function checkPrivileges(ModelUsuario $oUser){
-        return true;
+        return $oUser->getTipo() == ModelUsuario::TIPO_ADMIN;
     }
     
     public static function isAuth(){

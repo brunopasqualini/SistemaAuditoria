@@ -8,7 +8,19 @@
                 </div>
             </div>
         </header>
-        <?php \App\View\TemplateLoader::flush('menu'); ?>
+        <?php 
+            if(!\App\Controller\ControllerUserSession::isAuth()){
+                \App\View\TemplateLoader::flush('menu'); 
+            }
+            else{
+                $oUser = \App\Controller\ControllerUserSession::getUser();
+                if($oUser->getTipo() == App\Model\ModelUsuario::TIPO_NORMAL){
+                    \App\View\TemplateLoader::flush('menu_comum'); 
+                }else{
+                    \App\View\TemplateLoader::flush('menu_admin'); 
+                }
+            }
+        ?>
         <div class="container">
             {{content}}
         </div>

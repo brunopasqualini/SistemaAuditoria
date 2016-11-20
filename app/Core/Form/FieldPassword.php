@@ -2,6 +2,7 @@
 namespace App\Core\Form;
 
 use App\Core\Element;
+use App\Core\Exception\Form\InvalidValueFieldException;
 
 class FieldPassword extends Field {
 
@@ -9,6 +10,19 @@ class FieldPassword extends Field {
 
     public function __construct($sName, $sLabel, $bRequired = false){
         parent::__construct('password', $sName, $sLabel, $bRequired, Element::TYPE_OPENED);
+    }
+    
+    public function checkValueBeforeSet($sValue) {
+        parent::checkValueBeforeSet($sValue);
+        if(strlen($sValue) < 5){
+            throw new InvalidValueFieldException($this->getName(), '');
+        }
+        else if($sValue == '12345'){
+            throw new InvalidValueFieldException($this->getName(), '');
+        }
+        else if($sValue == 'abcde'){
+            throw new InvalidValueFieldException($this->getName(), '');
+        }
     }
 
     public function setValue($sValue){

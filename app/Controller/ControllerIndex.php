@@ -8,7 +8,11 @@ class ControllerIndex extends Controller {
             $oIndex = new \App\View\ViewLogin();
             $oIndex->render();
         }else{
-            $this->App->redirect('?path=gridProduto');
+            if(ControllerUserSession::getUser()->getTipo() == \App\Model\ModelUsuario::TIPO_NORMAL){
+                $this->App->redirect('?path=gridProdutoCompra');
+            }else{
+                $this->App->redirect('?path=gridProduto');
+            }
         }
     }
 

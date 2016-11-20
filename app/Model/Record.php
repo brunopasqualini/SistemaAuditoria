@@ -67,7 +67,7 @@ class Record {
         list($aColumns, $aValues) = [[], []];
         foreach($this->Reflection->getColumns() as $sNameModel => $aColumn){
             $aColumns[] = $aColumn['name'];
-            if($aColumn['serial'] == true){
+            if($aColumn['serial'] == true && !isset($aColumn['fk'])){
                 Bean::set($sNameModel, $this->getNextSequence($aColumn['name']), $this->Model);
             }
             $aValues[] = Bean::get($sNameModel, $this->Model);
