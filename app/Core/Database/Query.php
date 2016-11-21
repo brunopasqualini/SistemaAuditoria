@@ -31,7 +31,7 @@ class Query {
             case is_null($xValue):
                 return \PDO::PARAM_NULL;
             case is_bool($xValue):
-                return \PDO::PARAM_BOOL;
+                $xValue = $xValue === true ? 1 : 0;
             case is_int($xValue):
                 return \PDO::PARAM_INT;
             case is_double($xValue):

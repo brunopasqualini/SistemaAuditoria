@@ -69,6 +69,11 @@ class ModelUsuario extends ModelAbstract {
         }
         return $this->Cliente;
     }
+    
+    public static function getDataExpiracaoPadrao(){
+        $sDataUs = date('Y/m/d h:i:s');
+        return date('d/m/Y h:i:s', strtotime($sDataUs .  ' + 10 days'));
+    }
 	
     public function jsonSerialize(){
         return [
@@ -77,10 +82,21 @@ class ModelUsuario extends ModelAbstract {
             'email'   => $this->getEmail(),
             'ativo'   => $this->getAtivo(),
             'tipo'    => $this->getTipo(),
+            'tentativaLogin' => $this->getTentativaLogin(),
+            'ativoString'    => $this->getAtivoString(),
+            'tipoString'     => $this->getTipoString(),
             'senhaexpiracao' => $this->getSenhaExpiracao(),
             'senha'          => $this->getSenha(),
             'cliente'        => $this->getCliente()->jsonSerialize()
         ];
+    }
+    
+    public function getTipoString(){
+        return $this->tipo == self::TIPO_ADMIN ? 'Administrador' : 'Normal';
+    }
+    
+    public function getAtivoString(){
+        return $this->ativo == true ? 'Sim' : 'Não';
     }
 
 }

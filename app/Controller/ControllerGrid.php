@@ -5,13 +5,17 @@ use App\Model\ModelAbstract;
 
 class ControllerGrid extends ControllerUserSession {
 
-    private $Model;
-    private $View;
+    protected $Model;
+    protected $View;
 
     public function __construct(){
         parent::__construct();
         $this->View  = $this->getView();
         $this->Model = $this->getModel();
+    }
+    
+    protected function getDescriptionLog() {
+        return $this->getView()->getTitle();
     }
 
     public function process(){
@@ -22,7 +26,7 @@ class ControllerGrid extends ControllerUserSession {
     }
 
     public function getRecords(){
-        echo json_encode(ModelAbstract::getAll($this->Model, 1));
+        echo json_encode(ModelAbstract::getAll($this->Model, 2));
     }
 
     protected function getView(){

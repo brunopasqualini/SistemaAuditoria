@@ -3,7 +3,6 @@ namespace App\View\Form;
 
 use App\Core\Form\Form;
 use App\Core\Form\Field;
-use App\Core\Form\FieldNumeric;
 use App\Core\Form\FieldCombo;
 use App\Model\ModelCidade;
 use App\Model\ModelAbstract;
@@ -16,7 +15,7 @@ class ViewFormCidade extends ViewForm {
     }
 
     protected function initForm(Form $oForm){
-        $oCep  = new FieldNumeric('cep',   'CEP',   true);
+        $oCep  = new Field('text', 'cep',   'CEP',   true);
         $oCep->setLength(9);
         $oNome = new Field('text', 'nome', 'Nome', true);
         $oNome->setLength(150);
@@ -25,13 +24,15 @@ class ViewFormCidade extends ViewForm {
         $oForm->addField($oCep, $oNome, $oEstado);
     }
     
-    public static function getOptionsComboCidade() {
+    public static function getComboCidade($sNome = 'Cidade.cep', $sLabel = 'Cidade') {
+        $oCidade = new FieldCombo($sNome, $sLabel, true);
         $aOpcoes = [];
         $aPessoas = ModelAbstract::getAll(new ModelCidade());
         for ($x = 0; $x < count($aPessoas); $x++) {
             $aOpcoes[$aPessoas[$x]->getCep()] = $aPessoas[$x]->getNome();
         }
-        return $aOpcoes;
+        $oCidade->setCombo($aOpcoes);
+        return $oCidade;
     }
 
 }

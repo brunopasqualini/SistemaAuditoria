@@ -21,7 +21,7 @@ class ModelLogsAcesso extends ModelAbstract {
     /**
      * @Column(name=acsdatahora)
      */
-    protected $datahora;
+    protected $dataHora;
 
     /**
      * @Column(name=acsip)
@@ -36,7 +36,7 @@ class ModelLogsAcesso extends ModelAbstract {
     /**
      * @Column(name=acspathapp)
      */
-    protected $pathapp;
+    protected $pathApp;
 
     public function getUsuario(){
         if(!isset($this->Usuario)){
@@ -47,12 +47,14 @@ class ModelLogsAcesso extends ModelAbstract {
 
     public function jsonSerialize(){
         return [
-            'usuario'       => $this->getUsuario(),
-            'sequencia'     => $this->getSequencia(),
-            'datahora'      => $this->getdataHora(),
-            'ip'            => $this->getIp(),
-            'descricao'     => $this->getDescricao()
+            'usuario'   => $this->getUsuario()->jsonSerialize(),
+            'datahora'  => $this->getDataHora(),
+            'ip'        => $this->getIp(),
+            'descricao' => $this->getDescricao(),
+            'pathapp'   => $this->getPathApp()
         ];
     }
+    
+    protected function logModel($sDescricao, $aDadoAtual, $aDadoAnterior){}
 
 }

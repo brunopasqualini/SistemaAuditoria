@@ -5,12 +5,17 @@ use App\Core\Grid\Grid;
 use App\Core\Grid\GridField;
 use App\Controller\ControllerForm;
 use App\View\Form\ViewFormProdutoCompra;
+use App\View\ViewDefault;
 
 class ViewGridProdutoCompra extends ViewGrid {
-
-    public function __construct(){
+    
+    public function __construct() {
         parent::__construct();
-        $this->setTitle('Produto Compra');
+        $this->setTitle();
+    }
+    
+    public function setTitle($sTitle = ''){
+        ViewDefault::setTitle('Comprar Produto');
     }
 
     protected function initGrid(Grid $oGrid){

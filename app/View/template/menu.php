@@ -1,7 +1,6 @@
 <nav class="cor-tema">
     <div class="nav-wrapper">
         <div class="container">
-            <a href="?path=logout" class="right hide-on-med-and-down">Sair</a>
             <ul class="left hide-on-med-and-down">
                 <li><a href="index.php">Início</a></li>
                 <li><a href="?path=formCadastroCliente">Cadastre-se</a></li>

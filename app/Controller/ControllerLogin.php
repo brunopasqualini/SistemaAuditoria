@@ -14,6 +14,7 @@ class ControllerLogin extends ControllerForm {
             if($this->Model->getTentativaLogin() <= 2){
                 $this->Model->setTentativaLogin(0);
                 $this->Model->update();
+                $this->Model->getCliente()->read();
                 self::login($this->Model);
                 $this->App->redirect('');
             }

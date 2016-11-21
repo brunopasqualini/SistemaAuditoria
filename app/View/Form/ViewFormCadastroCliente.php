@@ -4,9 +4,7 @@ namespace App\View\Form;
 use App\Core\Form\Form;
 use App\Core\Form\Field;
 use App\Core\Form\FieldPassword;
-use App\Core\Form\FieldNumeric;
-use App\Core\Form\FieldCombo;
-use App\Model\ModelCliente;
+use App\View\Form\ViewFormCliente;
 
 class ViewFormCadastroCliente extends ViewForm {
 
@@ -14,34 +12,29 @@ class ViewFormCadastroCliente extends ViewForm {
         $this->setTitle('Cadastro Cliente');
         parent::__construct('formCadastroCliente');
     }
+    
+    public function getForm() {
+        $oForm = parent::getForm();
+        $oForm->setDescriptionBtn('Cadastrar');
+        return $oForm;
+    }
 
     protected function initForm(Form $oForm){
-        $oNome     = new Field('text', 'nome', 'Nome', false);
+        $oNome = new Field('text', 'nome', 'Nome', true);
         $oNome->setLength(200);
-        $oSexo = new FieldCombo('sexo', 'Sexo', false);
-        $oSexo->setCombo([
-            ModelCliente::SEXO_MASCULINO => 'Masculino',
-            ModelCliente::SEXO_FEMININO  => 'Feminino'
-        ]);
-        $oNascimento = new Field('date', 'nascimento', 'Nascimento', false);
-        $oNascimento->getCSS()->addClass('datepicker');
-        $oEndereco = new Field('text', 'endereco', 'Endereco', false);
+        $oSexo = ViewFormCliente::getComboSexo();
+        $oNascimento = new Field('text', 'nascimento', 'Nascimento', true);
+        //$oNascimento->getCSS()->addClass('datepicker');
+        $oEndereco = new Field('text', 'endereco', 'Endereço', true);
         $oEndereco->setLength(500);
-        $oCidade = new FieldCombo('cidade', 'Cidade', true);
-        $oCidade->setCombo(ViewFormCidade::getOptionsComboCidade());
-        $oSaldoDevedor = new FieldNumeric('saldoDevedor', 'Saldo Devedor', false);
-        $oSaldoDevedor->setLength(17);
-        $oLogin = new Field('text', 'login', 'Login', false);
-        $oLogin->setLength(100);
-        $oEmail = new Field('text', 'email', 'Email', false);
-        $oEmail->setLength(100);
-        $oSenha = new FieldPassword('password', 'password', false);
+        $oCidade = ViewFormCidade::getComboCidade();
+        $oLogin = new Field('text', 'login', 'Login', true);
+        $oLogin->setLength(50);
+        $oSenha = new FieldPassword('senha', 'Senha', true);
         $oSenha->setLength(100);
-        $oSenhaExpira = new Field('date', 'senhaexpiracao', '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;  Senha Expira', false);
-        $oSenhaExpira->getCSS()->addClass('datepicker');
-//------------- COLOCAR OS CAMPOS login, senha, email DO CADASTRO DE USUARIO
-        
-        $oForm->addField($oNome, $oEndereco, $oSexo, $oNascimento, $oCidade, $oSaldoDevedor, $oLogin, $oEmail, $oSenha, $oSenhaExpira);
+        $oEmail = new Field('text', 'email', 'Email', true);
+        $oEmail->setLength(100);
+        $oForm->addField($oNome, $oEndereco, $oSexo, $oNascimento, $oCidade, $oLogin, $oSenha, $oEmail);
     }
 
 }

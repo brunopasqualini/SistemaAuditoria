@@ -2,7 +2,13 @@
 
 namespace App\Controller;
 
+use App\Model\ModelUsuario;
+
 class ControllerFormProdutoCompra extends ControllerForm {
+    
+    protected function checkPrivileges(ModelUsuario $oUser){
+        return true;
+    }
     
     public function process() {
         if($this->isGet()){
@@ -26,6 +32,8 @@ class ControllerFormProdutoCompra extends ControllerForm {
         $oVenda->setDataPagamento(now());
         $oVenda->setValorPago($this->Model->getPreco() - ($this->Model->getPreco() * 0.1));
         $oVenda->insert();
+        $this->Model->setEstoque($this->Model->getEstoque() - 1);
+        $this->Model->update();
     }
 
     protected function renderView() {

@@ -13,7 +13,7 @@ class ConnectionPgSql extends Connection {
     private function getOptionsCLI(){
         $aOptions = [
             'client_encoding' => 'UTF8',
-            'datestyle'       => 'ISO,DMY',
+            'datestyle'       => 'SQL,DMY',
             'timezone'        => 'America/Sao_Paulo'
         ];
         $sOptions = implode(';', array_filter($aOptions, function(&$sValue, $sOption) {

@@ -5,7 +5,6 @@ use App\View\Form\ViewForm;
 use App\Core\Form\Form;
 use App\Core\Form\Field;
 use App\Core\Form\FieldPassword;
-use App\Core\Form\FieldCombo;
 
 class ViewLogin extends ViewForm {
 

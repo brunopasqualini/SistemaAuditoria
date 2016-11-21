@@ -6,15 +6,13 @@
 <nav class="cor-tema">
     <div class="nav-wrapper">
         <div class="container">
-            <a href="?path=logout" class="right hide-on-med-and-down">Sair</a>
+            <a href="?path=logout" class="right hide-on-med-and-down">{{usuario}} - Sair</a>
             <ul class="left hide-on-med-and-down">
                 <li><a href="index.php">Início</a></li>
                 <li><a href="?path=gridProduto">Produto</a></li>
                 <li><a href="?path=gridCidade">Cidade</a></li>
                 <li><a href="?path=gridCliente">Cliente</a></li>
                 <li><a href="?path=gridUsuario">Usuário</a></li>
-                <li><a href="?path=gridVenda">Venda</a></li>
-                <li><a href="?path=gridProdutoCompra">Vender</a></li>
                 <li>
                     <a class="dropdown-button" href="#!" data-activates="menu-admin-dropdown">
                         Logs
@@ -29,9 +27,8 @@
                 <li><a href="?path=gridCidade">Cidade</a></li>
                 <li><a href="?path=gridCliente">Cliente</a></li>
                 <li><a href="?path=gridUsuario">Usuário</a></li>
-                <li><a href="?path=gridVenda">Venda</a></li>
-                <li><a href="?path=gridProdutoCompra">Vender</a></li>
-                <li><a href="?path=gridLogs">Consultas de Logs</a></li>
+                <li><a href="?path=gridLogsAcesso">Log - Acesso</a></li>
+                <li><a href="?path=gridLogs">Log - Banco de Dados</a></li>
             </ul>
         </div>
     </div>

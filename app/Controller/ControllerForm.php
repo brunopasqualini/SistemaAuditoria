@@ -19,6 +19,10 @@ class ControllerForm extends ControllerUserSession {
         $this->View  = $this->getView();
         $this->Model = $this->getModel();
     }
+    
+    protected function getDescriptionLog() {
+        return $this->getView()->getTitle();
+    }
 
     public function process(){
         if($this->isGet()){
@@ -59,6 +63,7 @@ class ControllerForm extends ControllerUserSession {
             $this->Model->read();
             $this->setViewValuesFromModel();
             $this->View->getForm()->setReadonly($this->getAction() === self::ACTION_READ);
+            $this->disabledIdentifiersFields();
         }
         else if($this->getAction() == self::ACTION_DELETE){
             $oConfirm = new FormConfirm($this->getPath(), $this->getAction());
@@ -75,6 +80,16 @@ class ControllerForm extends ControllerUserSession {
             $this->View->render();
         }else{
             $this->View->renderAsModal();
+        }
+    }
+    
+    protected function disabledIdentifiersFields(){
+        $aFields = array_keys($this->Model->getPkComposition());
+        foreach($aFields as $sField){
+            if($oField = $this->View->getForm()->getField($sField)){
+                $oField->setReadonly(true);
+            }
+            
         }
     }
 

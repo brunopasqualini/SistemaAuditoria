@@ -15,14 +15,13 @@ class ViewGridUsuario extends ViewGrid {
 
     protected function initGrid(Grid $oGrid){
         $oGrid->setPath('gridUsuario');
-        $oGrid->addField(new GridField('codigo',  'Código'));
-        $oGrid->addField(new GridField('cliente.nome', 'Cliente'));
-        $oGrid->addField(new GridField('login',   'Login'));
-        $oGrid->addField(new GridField('email',   'Email'));
-        $oGrid->addField(new GridField('ativo',   'Situação'));
+        $oGrid->addField(new GridField('login',                'Login'));
+        $oGrid->addField(new GridField('email',                'Email'));
+        $oGrid->addField(new GridField('tentativaLogin',       'Tentativas'));
+        $oGrid->addField(new GridField('ativoString',          'Situação'));
+        $oGrid->addField(new GridField('tipoString',           'Tipo'));
+        $oGrid->addField(new GridField('cliente.nome',         'Cliente'));
         $oGrid->addField(new GridField('cliente.cidade.cep',   'Cep'));
-        $oGrid->addField(new GridField('tipo',    'Tipo'));
-        $oGrid->addField(new GridField('cliente.saldodevedor', 'Saldo Devedor'));
 
         $oForm = new ViewFormUsuario();
         $oExc  = $oGrid->addAction('Excluir',    'delete',     $oForm->getForm(), ControllerForm::ACTION_DELETE);

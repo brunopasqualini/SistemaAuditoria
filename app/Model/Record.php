@@ -31,6 +31,28 @@ class Record {
         }
         return $aRecord;
     }
+    
+    public function getAllWithCondition($aCondition, $aValues, $iChildLevel){
+        if($iChildLevel < 0){
+            return;
+        }
+        $aRecord  = [];
+        $aColumns = $this->Reflection->getColumns();
+        $sSelect  = $this->getSelect();
+        $aWhere   = [];
+        foreach ($aCondition as $sProperty => $sValue) {
+            $aWhere[] = $aColumns[$sProperty]['name'] . ' ' . $sValue;
+        }
+        $this->Query->setSql($sSelect . ' WHERE ' .  implode('AND ', $aWhere));
+        $this->Query->execute($aValues);
+        while($aFetch = $this->Query->fetch()){
+            $sNewModel = get_class($this->Model);
+            $aRecord[] = new $sNewModel();
+            self::setFromFetch($aFetch, $aRecord[count($aRecord) - 1]);
+            $this->readChilds($iChildLevel - 1, $aRecord[count($aRecord) - 1]);
+        }
+        return $aRecord;
+    }
 
     public function read($iChildLevel){
         if($iChildLevel < 0){
@@ -72,7 +94,7 @@ class Record {
             }
             $aValues[] = Bean::get($sNameModel, $this->Model);
         }
-        $sSql = Query::getInsert($this->Reflection->getTable(), $aColumns);
+        $sSql = Query::getInsert($this->getTable(), $aColumns);
         $this->Query->setSql($sSql);
         return $this->Query->execute($aValues);
     }
@@ -84,12 +106,13 @@ class Record {
             if($aColumn['pk'] == true){
                 $aWhere['columns'][] =  $aColumn['name'] . ' = ?';
                 $aWhere['values'][]  = $sColumnValue;
-            }else{
+            }
+            else if(!isEmpty($sColumnValue)){
                 $aColumns['columns'][] = $aColumn['name'];
                 $aColumns['values'][]  = $sColumnValue;
             }
         }
-        $sSql  = Query::getUpdate($this->Reflection->getTable(), $aColumns['columns']);
+        $sSql  = Query::getUpdate($this->getTable(), $aColumns['columns']);
         $sSql .= ' WHERE ' . implode(' AND ', $aWhere['columns']);
         $this->Query->setSql($sSql);
         $aValues = array_merge($aColumns['values'], $aWhere['values']);
@@ -104,7 +127,7 @@ class Record {
                 $aValues[]  = Bean::get($sNameModel, $this->Model);
             }
         }
-        $sSql  = "DELETE FROM {$this->Reflection->getTable()} WHERE ";
+        $sSql  = "DELETE FROM {$this->getTable()} WHERE ";
         $sSql .= implode(' AND ', $aColumns);
         $this->Query->setSql($sSql);
         return $this->Query->execute($aValues);
@@ -125,6 +148,10 @@ class Record {
     public function getPkComposition(){
         return $this->Reflection->getPkComposition();
     }
+    
+    public function getTable(){
+        return $this->Reflection->getTable();
+    }
 
     public static function setFromFetch($aFetch, $oModel){
         foreach($aFetch as $sProperty => $sValue){
@@ -135,10 +162,10 @@ class Record {
     private function getSelect(){
         $aColumns = [];
         foreach($this->Reflection->getColumns() as $sNameModel => $aColumn){
-            $sColumn = $this->Reflection->getTable() . '.' . $aColumn['name'];
+            $sColumn = $this->getTable() . '.' . $aColumn['name'];
             $aColumns[$sNameModel] = $sColumn;
         }
-        return Query::getSelect($this->Reflection->getTable(), $aColumns);
+        return Query::getSelect($this->getTable(), $aColumns);
     }
 
     private function getWhereWhenNotEmpty(){
@@ -154,7 +181,7 @@ class Record {
     }
 
     private function getNextSequence($sColumn){
-        $sSql = Query::getSelectMax($this->Reflection->getTable(), $sColumn, 1, 1);
+        $sSql = Query::getSelectMax($this->getTable(), $sColumn, 1, 1);
         $this->Query->setSql($sSql);
         $this->Query->execute();
         $aFetch = $this->Query->fetch();

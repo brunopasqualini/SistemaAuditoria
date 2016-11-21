@@ -21,7 +21,7 @@ class ModelLogs  extends ModelAbstract {
     /**
      * @Column(name=lbddatahora)
      */
-    protected $datahora;
+    protected $dataHora;
 
     /**
      * @Column(name=lbdip)
@@ -36,12 +36,12 @@ class ModelLogs  extends ModelAbstract {
     /**
      * @Column(name=lbddadoatual)
      */
-    protected $dadoatual;
+    protected $dadoAtual;
 
     /**
      * @Column(name=lbddadoanterior)
      */
-    protected $dadoanterior;
+    protected $dadoAnterior;
 
     /**
      * @Column(name=lbddescricao)
@@ -58,14 +58,15 @@ class ModelLogs  extends ModelAbstract {
     public function jsonSerialize(){
         return [
             'usuario'       => $this->getUsuario(),
-            'sequencia'     => $this->getSequencia(),
-            'datahora'      => $this->getdataHora(),
+            'datahora'      => $this->getDataHora(),
             'ip'            => $this->getIp(),
             'tabela'        => $this->getTabela(),
-            'dadoatual'     => $this->getDadoatual(),
-            'dadoaanterior' => $this->getDadoanterior(),
+            'dadoatual'     => $this->getDadoAtual(),
+            'dadoanterior'  => $this->getDadoAnterior(),
             'descricao'     => $this->getDescricao()
         ];
     }
+    
+    protected function logModel($sDescricao, $aDadoAtual, $aDadoAnterior){}
 
 }

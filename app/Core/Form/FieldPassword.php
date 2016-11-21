@@ -5,6 +5,8 @@ use App\Core\Element;
 use App\Core\Exception\Form\InvalidValueFieldException;
 
 class FieldPassword extends Field {
+    
+    const CRIPT_KEY = '&Na&33-;\z';
 
     private $value;
 
@@ -27,7 +29,7 @@ class FieldPassword extends Field {
 
     public function setValue($sValue){
         $this->checkValueBeforeSet($sValue);
-        $this->value = isEmpty($sValue) ? '' : md5($sValue);
+        $this->value = isEmpty($sValue) ? '' : md5($sValue . self::CRIPT_KEY);
         return $this;
     }
 

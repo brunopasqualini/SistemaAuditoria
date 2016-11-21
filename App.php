@@ -53,6 +53,7 @@ class App {
     }
 
     public function getParam($sParam, $xDefault = null){
+        $sParam = str_replace('.', '_', $sParam);
         return isset($this->_params[$sParam]) ? trim($this->_params[$sParam]) : $xDefault;
     }
 

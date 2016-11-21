@@ -8,16 +8,15 @@ class ViewGridLogsAcesso extends ViewGrid {
 
     public function __construct(){
         parent::__construct();
-        $this->setTitle('LogsAcesso');
+        $this->setTitle('Logs de Acesso');
     }
 
     protected function initGrid(Grid $oGrid){
         $oGrid->setPath('gridLogsAcesso');
-        $oGrid->addField(new GridField('usuario',   'Usuário'));
-        $oGrid->addField(new GridField('sequencia', 'Código'));
+        $oGrid->addField(new GridField('usuario.cliente.nome',   'Usuário'));
         $oGrid->addField(new GridField('datahora',  'Data/Hora'));
         $oGrid->addField(new GridField('ip',        'IP'));
-        $oGrid->addField(new GridField('descricao', 'Descricao'));
+        $oGrid->addField(new GridField('descricao', 'Descrição'));
       
     }
 

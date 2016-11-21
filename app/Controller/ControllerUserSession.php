@@ -20,6 +20,21 @@ abstract class ControllerUserSession extends Controller {
         if(!$this->checkPrivileges(self::getUser())){
             throw new InsufficientRightsException();
         }
+        $this->logAcess();
+    }
+    
+    protected function logAcess(){
+        $oLogAcesso = new \App\Model\ModelLogsAcesso();
+        $oLogAcesso->setUsuario(self::getUser());
+        $oLogAcesso->setDataHora(now());
+        $oLogAcesso->setIp(getClientIp());
+        $oLogAcesso->setPathApp($this->getPath());
+        $oLogAcesso->setDescricao($this->getDescriptionLog());
+        $oLogAcesso->insert();
+    }
+    
+    protected function getDescriptionLog(){
+        return '';
     }
     
     protected function checkLogin(){

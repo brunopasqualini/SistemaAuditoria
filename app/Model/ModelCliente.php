@@ -64,11 +64,21 @@ class ModelCliente extends ModelAbstract {
             'nome'         => $this->getNome(),
             'endereco'     => $this->getEndereco(),
             'sexo'         => $this->getSexo(),
+            'sexoString'   => $this->getSexoString(),
             'nascimento'   => $this->getNascimento(),
             'saldodevedor' => $this->getSaldoDevedor(),
             'ativo'        => $this->getAtivo(),
+            'ativoString'  => $this->getAtivoString(),
             'cidade'       => $this->getCidade()->jsonSerialize()
         ];
+    }
+    
+    public function getSexoString(){
+        return $this->sexo == self::SEXO_MASCULINO ? 'Masculino' : 'Feminino';
+    }
+    
+    public function getAtivoString(){
+        return $this->ativo == true ? 'Sim' : 'Não';
     }
 
 }

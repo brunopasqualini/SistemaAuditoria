@@ -13,11 +13,12 @@
                 \App\View\TemplateLoader::flush('menu'); 
             }
             else{
-                $oUser = \App\Controller\ControllerUserSession::getUser();
+                $oUser    = \App\Controller\ControllerUserSession::getUser();
+                $sUsuario = $oUser->getCliente()->getNome();
                 if($oUser->getTipo() == App\Model\ModelUsuario::TIPO_NORMAL){
-                    \App\View\TemplateLoader::flush('menu_comum'); 
+                    \App\View\TemplateLoader::flush('menu_comum', ['usuario' => $sUsuario]); 
                 }else{
-                    \App\View\TemplateLoader::flush('menu_admin'); 
+                    \App\View\TemplateLoader::flush('menu_admin', ['usuario' => $sUsuario]); 
                 }
             }
         ?>
